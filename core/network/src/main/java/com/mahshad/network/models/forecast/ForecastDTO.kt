@@ -10,5 +10,5 @@ data class ForecastDTO(
     @SerialName("current")
     val currentDTO: CurrentDTO? = null,
     @SerialName("forecast")
-    val forecastDTO: ForecastDataDTO? = null,
+    val forecastDTO: ForecastWeatherDTO? = null,
 )

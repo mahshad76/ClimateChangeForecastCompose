@@ -1,5 +1,6 @@
-package com.mahshad.network.models
+package com.mahshad.network.models.currentweather
 
+import com.mahshad.network.models.ConditionDTO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
