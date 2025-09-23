@@ -1,9 +1,37 @@
 package com.mahshad.network.di
 
 import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 object NetworkModule {
-//    @Provides
-//    fun provideRetrofit(): Retrofit =
+
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+    @Provides
+    @Singleton
+    fun provideApiKeyInterceptor(): ApiKeyInterceptor = ApiKeyInterceptor(BuildConfig)
+
+    @Provides
+    @Singleton
+    fun provideOkhttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient =
+        OkHttpClient.Builder().let { builder ->
+            builder.addInterceptor(httpLoggingInterceptor)
+            builder.connectTimeout(30, TimeUnit.SECONDS)
+            builder.readTimeout(30, TimeUnit.SECONDS)
+            builder.writeTimeout(30, TimeUnit.SECONDS)
+            builder.build()
+        }
 }
