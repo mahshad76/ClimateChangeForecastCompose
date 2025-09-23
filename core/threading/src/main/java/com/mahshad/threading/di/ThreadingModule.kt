@@ -1,5 +1,8 @@
 package com.mahshad.threading.di
 
+import com.mahshad.threading.common.DefaultDispatcher
+import com.mahshad.threading.common.IoDispatcher
+import com.mahshad.threading.common.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,10 +20,12 @@ object ThreadingModule {
     @Singleton
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
+    @MainDispatcher
     @Provides
     @Singleton
     fun provideMainDispatcher(): CoroutineDispatcher = Dispatchers.Main
 
+    @DefaultDispatcher
     @Provides
     @Singleton
     fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
