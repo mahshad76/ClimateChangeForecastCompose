@@ -20,6 +20,8 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "CimateChangeForecast"
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 include(":app")
 include(":core:common")
 include(":core:network")

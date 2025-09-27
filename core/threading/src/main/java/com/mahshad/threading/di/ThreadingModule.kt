@@ -15,6 +15,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 
 object ThreadingModule {
+
     @IoDispatcher
     @Provides
     @Singleton
