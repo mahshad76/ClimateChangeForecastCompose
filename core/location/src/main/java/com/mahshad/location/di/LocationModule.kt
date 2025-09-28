@@ -1,6 +1,7 @@
 package com.mahshad.location.di
 
 import android.content.Context
+import android.location.LocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.mahshad.location.LocationProvider
@@ -23,5 +24,10 @@ abstract class LocationModule {
         fun provideFusedLocationClient(@ApplicationContext context: Context):
                 FusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(context)
+
+        @Provides
+        @Singleton
+        fun provideLocationManager(@ApplicationContext context: Context): LocationManager =
+            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 }
