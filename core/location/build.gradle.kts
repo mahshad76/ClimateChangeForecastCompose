@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -36,6 +38,10 @@ dependencies {
 
     // Google Play Services location library
     implementation(libs.play.services.location)
+
+    // di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
