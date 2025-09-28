@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.androidx.material3)
 
 
+// projects
+    implementation(projects.feature.currentweather)
+    implementation(projects.feature.forecast)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
