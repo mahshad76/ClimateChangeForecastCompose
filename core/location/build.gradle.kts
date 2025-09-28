@@ -34,6 +34,9 @@ android {
 
 dependencies {
 
+    // Google Play Services location library
+    implementation(libs.play.services.location)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
