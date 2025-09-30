@@ -1,4 +1,4 @@
-package com.mahshad.cimatechangeforecast
+package com.mahshad.climatechangeforecast
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.mahshad.cimatechangeforecast.ui.theme.CimateChangeForecastTheme
+import com.mahshad.climatechangeforecast.ui.theme.CimateChangeForecastTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

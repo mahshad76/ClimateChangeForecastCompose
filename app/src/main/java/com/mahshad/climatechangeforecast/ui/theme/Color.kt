@@ -1,4 +1,4 @@
-package com.mahshad.cimatechangeforecast.ui.theme
+package com.mahshad.climatechangeforecast.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

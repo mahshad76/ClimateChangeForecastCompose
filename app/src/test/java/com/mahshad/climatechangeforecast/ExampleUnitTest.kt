@@ -1,4 +1,4 @@
-package com.mahshad.cimatechangeforecast
+package com.mahshad.climatechangeforecast
 
 import org.junit.Test
 

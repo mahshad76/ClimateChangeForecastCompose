@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mahshad.cimatechangeforecast"
+    namespace = "com.mahshad.climatechangeforecast"
     compileSdk = 36
 
     defaultConfig {
@@ -54,6 +54,7 @@ dependencies {
 // projects
     implementation(projects.feature.currentweather)
     implementation(projects.feature.forecast)
+    implementation(libs.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
