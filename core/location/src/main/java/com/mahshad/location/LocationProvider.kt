@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface LocationProvider {
     fun getLocationUpdates(): Flow<Location>
-    fun getLastKnownLocation(): Location?
-    fun locationEnabledUpdates(): Flow<Boolean>
+    suspend fun getLastKnownLocation(): Location?
+    fun isLocationEnabled(): Flow<Boolean>
     fun hasLocationPermissions(): Boolean
 }
