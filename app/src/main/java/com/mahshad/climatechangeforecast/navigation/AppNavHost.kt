@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import com.currentweather.navigation.CurrentWeatherRoute
 import com.currentweather.navigation.CurrentWeatherRoutes
 import com.currentweather.navigation.currentWeatherGraph
+import com.forecast.navigation.ForecastRoutes
+import com.forecast.navigation.forecastGraph
 
 @Composable
 fun AppNavHost(
@@ -20,7 +22,16 @@ fun AppNavHost(
         startDestination = CurrentWeatherRoute,
         modifier = modifier
     ) {
-        currentWeatherGraph(navController = navController)
+        currentWeatherGraph(
+            navController = navController,
+            { location: String ->
+                navController.navigateToForecastGraph(ForecastRoutes.ForecastHome(location))
+            })
+        forecastGraph(
+            navController = navController,
+            {
+                navController.navigateToCurrentWeatherGraph()
+            })
     }
 }
 
@@ -32,11 +43,10 @@ fun NavController.navigateToCurrentWeatherGraph() {
     }
 }
 
-fun NavController.navigateToForecastGraph() {
-    navigate(CurrentWeatherRoutes.CurrentWeatherHome) {
+fun NavController.navigateToForecastGraph(forecastHome: ForecastRoutes.ForecastHome) {
+    navigate(forecastHome) {
         popUpTo(graph.startDestinationId) { saveState = true }
         launchSingleTop = true
         restoreState = true
     }
-
 }
