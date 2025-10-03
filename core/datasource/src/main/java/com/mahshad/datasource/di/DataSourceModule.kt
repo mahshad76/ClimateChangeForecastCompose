@@ -13,5 +13,5 @@ import javax.inject.Singleton
 abstract class DataSourceModule {
     @Singleton
     @Binds
-    abstract fun provideWeatherDataSource(defaultWeatherDataSource: DefaultWeatherDataSource): WeatherDataSource
+    abstract fun bindWeatherDataSource(defaultWeatherDataSource: DefaultWeatherDataSource): WeatherDataSource
 }

@@ -46,36 +46,36 @@ object NetworkModule {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideJson() = Json {
+        ignoreUnknownKeys = true
+        isLenient = true
+        prettyPrint = true
+        coerceInputValues = true
+        encodeDefaults = false
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofitConverter(json: Json): Converter.Factory {
+        val contentType = "application/json".toMediaType()
+        return json.asConverterFactory(contentType)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit =
+        Retrofit
+            .Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(converterFactory)
+            .build()
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService =
+        retrofit.create(ApiService::class.java)
 }
-
-@Provides
-@Singleton
-fun provideJson() = Json {
-    ignoreUnknownKeys = true
-    isLenient = true
-    prettyPrint = true
-    coerceInputValues = true
-    encodeDefaults = false
-}
-
-@Provides
-@Singleton
-fun provideRetrofitConverter(json: Json): Converter.Factory {
-    val contentType = "application/json".toMediaType()
-    return json.asConverterFactory(contentType)
-}
-
-@Provides
-@Singleton
-fun provideRetrofit(okHttpClient: OkHttpClient, converterFactory: Converter.Factory): Retrofit =
-    Retrofit
-        .Builder()
-        .baseUrl(BuildConfig.BASE_URL)
-        .client(okHttpClient)
-        .addConverterFactory(converterFactory)
-        .build()
-
-@Provides
-@Singleton
-fun provideApiService(retrofit: Retrofit): ApiService =
-    retrofit.create(ApiService::class.java)

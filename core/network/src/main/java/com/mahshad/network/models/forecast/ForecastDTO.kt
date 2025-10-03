@@ -1,5 +1,7 @@
 package com.mahshad.network.models.forecast
 
+import com.mahshad.network.models.LocationDTO
+import com.mahshad.network.models.currentweather.CurrentDTO
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
