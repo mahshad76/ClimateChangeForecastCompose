@@ -21,6 +21,7 @@ class DefaultWeatherDataSource @Inject constructor(
         api: String,
         alert: String
     ): Result<CurrentWeather> {
+        // Main safe
         return withContext(ioDispatcher) {
             try {
                 val response = apiService.getCurrentWeather(q, days, api, alert)
