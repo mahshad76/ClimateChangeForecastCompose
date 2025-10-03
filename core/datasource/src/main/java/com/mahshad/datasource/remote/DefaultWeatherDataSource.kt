@@ -6,11 +6,14 @@ import com.mahshad.network.ApiService
 import com.mahshad.threading.common.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DefaultRemoteDataSource(
+@Singleton
+class DefaultWeatherDataSource @Inject constructor(
     private val apiService: ApiService,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : RemoteDataSource {
+) : WeatherDataSource {
 
     override suspend fun getCurrentWeather(
         q: String,
