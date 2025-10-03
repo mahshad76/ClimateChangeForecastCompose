@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-    //    one possible query
+
     @GET("forecast.json")
     suspend fun getForecastWeather(
         @Query("q") q: String,
@@ -26,7 +26,7 @@ interface ApiService {
             Response<List<CurrentWeatherDTO>>
 
     @GET("search.json")
-    fun searchLocation(
+    suspend fun searchLocation(
         @Query("q") cityName: String
     ):
             Response<List<SearchDTO>>
