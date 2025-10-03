@@ -14,7 +14,7 @@ interface ApiService {
         @Query("q") q: String,
         @Query("api") api: String = "no"
     ):
-            Response<List<ForecastWeatherDTO>>
+            Response<ForecastWeatherDTO>
 
     @GET("current.json")
     suspend fun getCurrentWeather(
@@ -23,7 +23,7 @@ interface ApiService {
         @Query("api") api: String = "no",
         @Query("alert") alert: String = "no"
     ):
-            Response<List<CurrentWeatherDTO>>
+            Response<CurrentWeatherDTO>
 
     @GET("search.json")
     suspend fun searchLocation(

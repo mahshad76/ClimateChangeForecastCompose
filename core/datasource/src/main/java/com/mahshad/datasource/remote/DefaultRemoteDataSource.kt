@@ -1,27 +1,42 @@
 package com.mahshad.datasource.remote
 
 import com.mahshad.datasource.model.currentweather.CurrentWeather
+import com.mahshad.datasource.model.currentweather.toCurrentWeather
 import com.mahshad.network.ApiService
-import com.mahshad.network.models.currentweather.CurrentWeatherDTO
-import com.mahshad.network.models.forecast.ForecastWeatherDTO
-import com.mahshad.network.models.search.SearchDTO
-import retrofit2.Response
+import com.mahshad.threading.common.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
 
-class DefaultRemoteDataSource(private val apiService: ApiService) : RemoteDataSource {
-//    override suspend fun getForecastWeather(
-//        q: String,
-//        api: String
-//    ): List<ForecastWeather>
-
+class DefaultRemoteDataSource(
+    private val apiService: ApiService,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+) : RemoteDataSource {
 
     override suspend fun getCurrentWeather(
         q: String,
         days: Int,
         api: String,
         alert: String
-    ): List<CurrentWeather>{
+    ): Result<CurrentWeather> {
+        return withContext(ioDispatcher) {
+            try {
+                val response = apiService.getCurrentWeather(q, days, api, alert)
+                when (response.isSuccessful) {
+                    true -> {
+                        return@withContext response.body()?.let {
+                            it.toCurrentWeather().fold(
+                                onSuccess = { currentWeather -> Result.success(currentWeather) },
+                                onFailure = { throwable -> Result.failure(throwable) }
+                            )
+                        }
+                            ?: return@withContext Result.failure(Throwable("Successful response but body was unexpectedly null"))
+                    }
 
+                    false -> return@withContext Result.failure(Throwable("the response body is not successful"))
+                }
+            } catch (e: Exception) {
+                return@withContext Result.failure(e)
+            }
+        }
     }
-
-//    override suspend fun searchLocation(cityName: String): List<Search>
 }
