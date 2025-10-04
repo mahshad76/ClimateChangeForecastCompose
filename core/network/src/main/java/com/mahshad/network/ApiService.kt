@@ -14,6 +14,9 @@ interface ApiService {
 //    ):
 //            Response<ForecastWeatherDTO>
 
+    var enableError: Boolean
+    var nullifyForbiddenAttributes: Boolean
+
     @GET("current.json")
     suspend fun getCurrentWeather(
         @Query("q") q: String,
