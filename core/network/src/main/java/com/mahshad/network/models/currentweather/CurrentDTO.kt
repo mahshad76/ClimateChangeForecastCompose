@@ -68,5 +68,8 @@ data class CurrentDTO(
             windchillC = 0.0,
             windchillF = 0.0
         )
+        val DEFAULT2 = DEFAULT.copy(
+            tempC = null
+        )
     }
 }

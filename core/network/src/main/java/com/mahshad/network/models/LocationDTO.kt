@@ -25,5 +25,6 @@ data class LocationDTO(
             "",
             ""
         )
+        val DEFAULT2 = DEFAULT.copy(country = null)
     }
 }

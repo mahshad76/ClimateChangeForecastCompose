@@ -14,5 +14,8 @@ data class CurrentWeatherDTO(
             CurrentDTO.DEFAULT,
             LocationDTO.DEFAULT
         )
+        val DEFAULT2 = DEFAULT.copy(
+            currentDTO = null
+        )
     }
 }
