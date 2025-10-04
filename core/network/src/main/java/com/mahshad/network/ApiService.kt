@@ -1,20 +1,18 @@
 package com.mahshad.network
 
 import com.mahshad.network.models.currentweather.CurrentWeatherDTO
-import com.mahshad.network.models.forecast.ForecastWeatherDTO
-import com.mahshad.network.models.search.SearchDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET("forecast.json")
-    suspend fun getForecastWeather(
-        @Query("q") q: String,
-        @Query("api") api: String = "no"
-    ):
-            Response<ForecastWeatherDTO>
+//    @GET("forecast.json")
+//    suspend fun getForecastWeather(
+//        @Query("q") q: String,
+//        @Query("api") api: String = "no"
+//    ):
+//            Response<ForecastWeatherDTO>
 
     @GET("current.json")
     suspend fun getCurrentWeather(
@@ -25,9 +23,9 @@ interface ApiService {
     ):
             Response<CurrentWeatherDTO>
 
-    @GET("search.json")
-    suspend fun searchLocation(
-        @Query("q") cityName: String
-    ):
-            Response<List<SearchDTO>>
+//    @GET("search.json")
+//    suspend fun searchLocation(
+//        @Query("q") cityName: String
+//    ):
+//            Response<List<SearchDTO>>
 }
