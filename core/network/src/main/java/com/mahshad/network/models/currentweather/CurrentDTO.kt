@@ -35,4 +35,38 @@ data class CurrentDTO(
     @SerialName("wind_mph") val windMph: Double? = null,
     @SerialName("windchill_c") val windchillC: Double? = null,
     @SerialName("windchill_f") val windchillF: Double? = null
-)
+) {
+    companion object {
+        val DEFAULT = CurrentDTO(
+            cloud = 0,
+            conditionDTO = ConditionDTO.DEFAULT,
+            dewPointC = 0.0,
+            dewPointF = 0.0,
+            feelsLikeC = 0.0,
+            feelsLikeF = 0.0,
+            gustKph = 0.0,
+            gustMph = 0.0,
+            heatIndexC = 0.0,
+            heatIndexF = 0.0,
+            humidity = 0,
+            isDay = 0,
+            lastUpdated = "",
+            lastUpdatedEpoch = 0,
+            precipIn = 0.0,
+            precipMm = 0.0,
+            pressureIn = 0.0,
+            pressureMb = 0.0,
+            tempC = 0.0,
+            tempF = 0.0,
+            uv = 0.0,
+            visKm = 0.0,
+            visMiles = 0.0,
+            windDegree = 0,
+            windDir = "",
+            windKph = 0.0,
+            windMph = 0.0,
+            windchillC = 0.0,
+            windchillF = 0.0
+        )
+    }
+}

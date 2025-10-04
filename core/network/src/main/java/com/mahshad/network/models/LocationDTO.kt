@@ -13,4 +13,17 @@ data class LocationDTO(
     @SerialName("name") val name: String? = null,
     @SerialName("region") val region: String? = null,
     @SerialName("tz_id") val tzId: String? = null
-)
+) {
+    companion object {
+        val DEFAULT = LocationDTO(
+            "",
+            0.0,
+            "",
+            0,
+            0.0,
+            "",
+            "",
+            ""
+        )
+    }
+}

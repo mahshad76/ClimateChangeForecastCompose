@@ -8,4 +8,11 @@ import kotlinx.serialization.Serializable
 data class CurrentWeatherDTO(
     @SerialName("current") val currentDTO: CurrentDTO? = null,
     @SerialName("location") val locationDTO: LocationDTO? = null
-)
+) {
+    companion object {
+        val DEFAULT = CurrentWeatherDTO(
+            CurrentDTO.DEFAULT,
+            LocationDTO.DEFAULT
+        )
+    }
+}
