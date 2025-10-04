@@ -16,6 +16,9 @@ appcompat = "1.7.1"
 coil = "2.7.0"
 material = "1.12.0"
 material3 = "1.2.1"
+mockitoCore = "5.20.0"
+mockitoJunitJupiter = "5.20.0"
+mockitoKotlin = "6.0.0"
 navigationCompose = "2.9.0"
 playServicesLocation = "21.3.0"
 retrofit = "2.11.0"
@@ -53,6 +56,9 @@ kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-cor
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx" }
 material3 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore" }
+mockito-junit-jupiter = { module = "org.mockito:mockito-junit-jupiter", version.ref = "mockitoJunitJupiter" }
+mockito-kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mockitoKotlin" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-kotlinx-serialization-converter = { module = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter", version = "1.0.0" }
