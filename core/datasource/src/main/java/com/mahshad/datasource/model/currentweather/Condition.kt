@@ -6,7 +6,15 @@ data class Condition(
     val code: Int,
     val icon: String,
     val text: String
-)
+) {
+    companion object {
+        val DEFAULT = Condition(
+            0,
+            "icon",
+            "text"
+        )
+    }
+}
 
 fun ConditionDTO.toCondition(): Condition {
     return Condition(

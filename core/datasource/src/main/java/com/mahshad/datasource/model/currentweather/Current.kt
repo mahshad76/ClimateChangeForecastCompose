@@ -23,7 +23,32 @@ data class Current(
     val windMph: Double,
     val windchillC: Double,
     val windchillF: Double
-)
+) {
+    companion object {
+        val DEFAULT = Current(
+            cloud = 0,
+            condition = Condition.DEFAULT,
+            feelsLikeC = 0.0,
+            feelsLikeF = 0.0,
+            humidity = 0,
+            isDay = 0,
+            lastUpdated = "",
+            precipIn = 0.0,
+            precipMm = 0.0,
+            pressureIn = 0.0,
+            pressureMb = 0.0,
+            tempC = 0.0,
+            tempF = 0.0,
+            uv = 0.0,
+            windDegree = 0,
+            windDir = "",
+            windKph = 0.0,
+            windMph = 0.0,
+            windchillC = 0.0,
+            windchillF = 0.0
+        )
+    }
+}
 
 fun CurrentDTO.toCurrent(): Result<Current> {
     return runCatching {

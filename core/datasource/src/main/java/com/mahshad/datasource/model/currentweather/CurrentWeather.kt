@@ -5,7 +5,11 @@ import com.mahshad.network.models.currentweather.CurrentWeatherDTO
 data class CurrentWeather(
     val current: Current,
     val location: Location
-)
+) {
+    companion object {
+        val DEFAULT = CurrentWeather(Current.DEFAULT, Location.DEFAULT)
+    }
+}
 
 fun CurrentWeatherDTO.toCurrentWeather(): Result<CurrentWeather> {
     return runCatching {

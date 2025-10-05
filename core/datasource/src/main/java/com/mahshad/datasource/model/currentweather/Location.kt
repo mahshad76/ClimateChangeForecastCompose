@@ -9,7 +9,18 @@ data class Location(
     val long: Double,
     val name: String,
     val region: String
-)
+) {
+    companion object {
+        val DEFAULT = Location(
+            "",
+            0.0,
+            "",
+            0.0,
+            "",
+            ""
+        )
+    }
+}
 
 fun LocationDTO.toLocation(): Result<Location> {
     return runCatching {
