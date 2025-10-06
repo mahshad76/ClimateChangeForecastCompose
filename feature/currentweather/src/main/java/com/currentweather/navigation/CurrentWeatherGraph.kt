@@ -19,7 +19,7 @@ fun NavGraphBuilder.currentWeatherGraph(
         route = CurrentWeatherRoute::class
     ) {
         composable(CurrentWeatherRoutes.CurrentWeatherHome::class) {
-            CurrentWeatherHomeScreen(onNavigateToForecastGraph)
+            CurrentWeatherHomeScreen(onNavigateToForecastGraph = onNavigateToForecastGraph)
         }
     }
 }

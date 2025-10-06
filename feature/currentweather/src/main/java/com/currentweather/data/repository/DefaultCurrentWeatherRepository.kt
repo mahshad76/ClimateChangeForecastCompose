@@ -9,10 +9,8 @@ class DefaultCurrentWeatherRepository @Inject constructor(
 ) : CurrentWeatherRepository {
     override suspend fun getCurrentWeather(
         q: String,
-        days: Int,
-        api: String,
-        alert: String
+        api: String
     ): Result<CurrentWeather> {
-        return weatherDataSource.getCurrentWeather(q, days, api, alert)
+        return weatherDataSource.getCurrentWeather(q, api)
     }
 }

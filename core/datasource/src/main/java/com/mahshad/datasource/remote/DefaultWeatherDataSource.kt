@@ -17,14 +17,12 @@ class DefaultWeatherDataSource @Inject constructor(
 
     override suspend fun getCurrentWeather(
         q: String,
-        days: Int,
-        api: String,
-        alert: String
+        api: String
     ): Result<CurrentWeather> {
         // Main safe
         return withContext(ioDispatcher) {
             try {
-                val response = apiService.getCurrentWeather(q, days, api, alert)
+                val response = apiService.getCurrentWeather(q, api)
                 when (response.isSuccessful) {
                     true -> {
                         return@withContext response.body()?.let {

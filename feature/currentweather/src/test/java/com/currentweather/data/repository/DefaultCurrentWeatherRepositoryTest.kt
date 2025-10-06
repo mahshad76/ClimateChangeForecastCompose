@@ -29,9 +29,7 @@ class DefaultCurrentWeatherRepositoryTest {
         coEvery {
             weatherDataSource.getCurrentWeather(
                 q = "",
-                days = 0,
-                api = "",
-                alert = ""
+                api = ""
             )
         } returns Result.failure(
             Throwable(
@@ -41,9 +39,7 @@ class DefaultCurrentWeatherRepositoryTest {
         // When
         val result = currentWeatherRepository.getCurrentWeather(
             q = "",
-            days = 0,
-            api = "",
-            alert = ""
+            api = ""
         )
         // Then
         assertEquals(true, result.isFailure)
@@ -61,9 +57,7 @@ class DefaultCurrentWeatherRepositoryTest {
         coEvery {
             weatherDataSource.getCurrentWeather(
                 q = "",
-                days = 0,
-                api = "",
-                alert = ""
+                api = ""
             )
         } returns Result.failure(
             Throwable(
@@ -73,9 +67,7 @@ class DefaultCurrentWeatherRepositoryTest {
         // When
         val result = currentWeatherRepository.getCurrentWeather(
             q = "",
-            days = 0,
-            api = "",
-            alert = ""
+            api = ""
         )
         // Then
         assertEquals(true, result.isFailure)
@@ -87,9 +79,7 @@ class DefaultCurrentWeatherRepositoryTest {
         coEvery {
             weatherDataSource.getCurrentWeather(
                 q = "",
-                days = 0,
-                api = "",
-                alert = ""
+                api = ""
             )
         } returns Result.failure(
             Throwable("the response body is not successful")
@@ -97,9 +87,7 @@ class DefaultCurrentWeatherRepositoryTest {
         // When
         val result = currentWeatherRepository.getCurrentWeather(
             q = "",
-            days = 0,
-            api = "",
-            alert = ""
+            api = ""
         )
         // Then
         assertEquals(true, result.isFailure)
@@ -117,17 +105,13 @@ class DefaultCurrentWeatherRepositoryTest {
         coEvery {
             weatherDataSource.getCurrentWeather(
                 q = "",
-                days = 0,
-                api = "",
-                alert = ""
+                api = ""
             )
         } returns Result.success(CurrentWeather.DEFAULT)
         // When
         val result = currentWeatherRepository.getCurrentWeather(
             q = "",
-            days = 0,
-            api = "",
-            alert = ""
+            api = ""
         )
         // Then
         assertEquals(true, result.isSuccess)

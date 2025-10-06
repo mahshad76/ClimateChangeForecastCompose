@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -51,10 +53,14 @@ dependencies {
     implementation(libs.androidx.material3)
 
 
-// projects
+    // projects
     implementation(projects.feature.currentweather)
     implementation(projects.feature.forecast)
     implementation(libs.navigation.compose)
+
+    // di
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

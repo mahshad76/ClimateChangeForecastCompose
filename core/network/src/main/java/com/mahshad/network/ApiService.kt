@@ -20,9 +20,7 @@ interface ApiService {
     @GET("current.json")
     suspend fun getCurrentWeather(
         @Query("q") q: String,
-        @Query("days") days: Int = 1,
-        @Query("api") api: String = "no",
-        @Query("alert") alert: String = "no"
+        @Query("api") api: String = "no"
     ):
             Response<CurrentWeatherDTO>
 
