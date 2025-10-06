@@ -1,3 +1,4 @@
+import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
@@ -15,9 +16,11 @@ android {
     defaultConfig {
         minSdk = 24
 
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField("String", "API_KEY", "\"${project.findProperty("API_KEY")}\"")
+        val localPropertiesFile = rootProject.file("local.properties")
+        val localProperties = Properties()
+        localProperties.load(FileInputStream(localPropertiesFile))
+
+        buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\"")
         buildConfigField("String", "BASE_URL", "\"https://api.weatherapi.com/v1/\"")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
