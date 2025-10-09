@@ -2,6 +2,8 @@ package com.mahshad.datasource.remote
 
 import com.mahshad.datasource.model.currentweather.CurrentWeather
 import com.mahshad.datasource.model.currentweather.toCurrentWeather
+import com.mahshad.datasource.model.forecast.Forecast
+import com.mahshad.datasource.model.forecast.ForecastData
 import com.mahshad.network.ApiService
 import com.mahshad.threading.common.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
@@ -40,5 +42,12 @@ class DefaultWeatherDataSource @Inject constructor(
                 return@withContext Result.failure(e)
             }
         }
+    }
+
+    override suspend fun getForecastWeather(
+        q: String,
+        api: String
+    ): Result<Forecast> {
+
     }
 }
