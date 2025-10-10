@@ -10,7 +10,11 @@ data class Forecast(
     val location: Location,
     val current: Current,
     val forecast: ForecastData
-)
+) {
+    companion object {
+        val DEFAULT = ForecastDTO.DEFAULT.toForecastResult()
+    }
+}
 
 fun ForecastDTO.toForecastResult(): Result<Forecast> {
     return runCatching {

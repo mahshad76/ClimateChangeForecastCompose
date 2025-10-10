@@ -25,7 +25,6 @@ data class Day(
     val condition: Condition,
     val uv: Double
 )
-
 fun DayDTO.toDayResult(): Result<Day> {
     return runCatching {
         val requiredCondition = condition
