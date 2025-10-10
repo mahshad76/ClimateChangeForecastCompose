@@ -3,6 +3,7 @@ package com.mahshad.datasource.remote
 
 import com.mahshad.network.ApiService
 import com.mahshad.network.models.currentweather.CurrentWeatherDTO
+import com.mahshad.network.models.forecast.ForecastDTO
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
@@ -20,23 +21,21 @@ class ApiServiceFake(
         errorResponseBody
     )
 
-//    override suspend fun getForecastWeather(
-//        q: String,
-//        api: String
-//    ): Response<ForecastWeatherDTO> {
-//        produceResponse(ForecastWeatherDTO)
-//    }
-
-    override suspend fun getCurrentWeather(
-        q: String,
-        days: Int,
-        api: String,
-        alert: String
-    ): Response<CurrentWeatherDTO> =
+    override suspend fun getCurrentWeather(q: String, api: String): Response<CurrentWeatherDTO> =
         if (enableError) errorResponse
         else
             if (nullifyForbiddenAttributes) Response.success(CurrentWeatherDTO.DEFAULT2)
             else Response.success(CurrentWeatherDTO.DEFAULT)
+
+    override suspend fun getForecastWeather(
+        location: String,
+        days: Int,
+        aqi: Boolean,
+        alerts: Boolean
+    ): Response<ForecastDTO> {
+        if (enableError) errorResponse
+        else
+    }
 
 //    override suspend fun searchLocation(cityName: String): Response<List<SearchDTO>> {
 //

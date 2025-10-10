@@ -7,4 +7,10 @@ import kotlinx.serialization.Serializable
 data class ForecastWeatherDTO(
     @SerialName("forecastday")
     val forecastDay: List<ForecastDayDTO?>? = null,
-)
+) {
+    companion object {
+        val DEFAULT = ForecastWeatherDTO(
+            listOf(ForecastDayDTO.DEFAULT)
+        )
+    }
+}

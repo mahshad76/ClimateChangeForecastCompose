@@ -9,6 +9,11 @@ interface WeatherDataSource {
         api: String
     ): Result<CurrentWeather>
 
-    suspend fun getForecastWeather(q: String, api: String): Result<Forecast>
+    suspend fun getForecastWeather(
+        location: String,
+        days: Int,
+        aqi: Boolean,
+        alerts: Boolean
+    ): Result<Forecast>
 //    suspend fun searchLocation(cityName: String): Response<List<SearchDTO>>
 }

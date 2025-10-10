@@ -10,19 +10,21 @@ interface ApiService {
     var enableError: Boolean
     var nullifyForbiddenAttributes: Boolean
 
-    @GET("forecast.json")
-    suspend fun getForecastWeather(
-        @Query("q") q: String,
-        @Query("api") api: String = "no"
-    ):
-            Response<ForecastDTO>
-
     @GET("current.json")
     suspend fun getCurrentWeather(
         @Query("q") q: String,
         @Query("api") api: String = "no"
     ):
             Response<CurrentWeatherDTO>
+
+    @GET("forecast.json")
+    suspend fun getForecastWeather(
+        @Query("q") location: String,
+        @Query("days") days: Int = 1,
+        @Query("aqi") aqi: Boolean = false,
+        @Query("alerts") alerts: Boolean = false
+    ):
+            Response<ForecastDTO>
 
 //    @GET("search.json")
 //    suspend fun searchLocation(

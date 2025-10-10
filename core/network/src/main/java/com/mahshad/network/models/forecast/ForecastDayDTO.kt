@@ -15,4 +15,14 @@ data class ForecastDayDTO(
     val astro: AstroDTO? = null,
     @SerialName("hour")
     val hour: List<HourDTO?>? = null,
-)
+) {
+    companion object {
+        val DEFAULT = ForecastDayDTO(
+            "",
+            0L,
+            DayDTO.DEFAULT,
+            AstroDTO.DEFAULT,
+            listOf(HourDTO.DEFAULT)
+        )
+    }
+}

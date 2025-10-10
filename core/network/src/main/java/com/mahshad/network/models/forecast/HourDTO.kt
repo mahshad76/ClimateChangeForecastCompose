@@ -76,4 +76,44 @@ data class HourDTO(
     val gustKph: Double? = null,
     @SerialName("uv")
     val uv: Double? = null,
-)
+) {
+    companion object {
+        val DEFAULT = HourDTO(
+            timeEpoch = 0L,
+            time = "",
+            tempC = 0.0,
+            tempF = 0.0,
+            isDay = 0,
+            condition = ConditionDTO.DEFAULT,
+            windMph = 0.0,
+            windKph = 0.0,
+            windDegree = 0,
+            windDir = "N/A",
+            pressureMb = 0.0,
+            pressureIn = 0.0,
+            precipitationMm = 0.0,
+            precipitationIn = 0.0,
+            snowCm = 0.0,
+            snowIn = 0.0,
+            humidity = 0,
+            cloud = 0,
+            feelsLikeC = 0.0,
+            feelsLikeF = 0.0,
+            windchillC = 0.0,
+            windchillF = 0.0,
+            heatIndexC = 0.0,
+            heatIndexF = 0.0,
+            dewPointC = 0.0,
+            dewPointF = 0.0,
+            willItRain = 0,
+            chanceOfRain = 0,
+            willItSnow = 0,
+            chanceOfSnow = 0,
+            visKm = 0.0,
+            visMiles = 0.0,
+            gustMph = 0.0,
+            gustKph = 0.0,
+            uv = 0.0
+        )
+    }
+}

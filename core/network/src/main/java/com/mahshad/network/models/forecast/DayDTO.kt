@@ -46,4 +46,29 @@ data class DayDTO(
     val condition: ConditionDTO? = null,
     @SerialName("uv")
     val uv: Double? = null
-)
+) {
+    companion object {
+        val DEFAULT = DayDTO(
+            maxTempC = 0.0,
+            maxTempF = 0.0,
+            minTempC = 0.0,
+            minTempF = 0.0,
+            avgTempC = 0.0,
+            avgTempF = 0.0,
+            maxWindMph = 0.0,
+            maxWindKph = 0.0,
+            totalPrecipitationMm = 0.0,
+            totalPrecipitationIn = 0.0,
+            totalSnowCm = 0.0,
+            avgVisKm = 0.0,
+            avgVisMiles = 0.0,
+            avgHumidity = 0,
+            dailyWillItRain = 0,
+            dailyChanceOfRain = 0,
+            dailyWillItSnow = 0,
+            dailyChanceOfSnow = 0,
+            condition = ConditionDTO.DEFAULT,
+            uv = 0.0
+        )
+    }
+}

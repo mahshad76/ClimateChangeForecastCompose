@@ -13,4 +13,12 @@ data class ForecastDTO(
     val currentDTO: CurrentDTO? = null,
     @SerialName("forecast")
     val forecastDTO: ForecastWeatherDTO? = null,
-)
+) {
+    companion object {
+        val DEFAULT = ForecastDTO(
+            LocationDTO.DEFAULT,
+            CurrentDTO.DEFAULT,
+            ForecastWeatherDTO.DEFAULT
+        )
+    }
+}
