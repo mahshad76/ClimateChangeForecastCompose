@@ -6,11 +6,16 @@ import androidx.lifecycle.viewModelScope
 import com.currentweather.data.repository.CurrentWeatherRepository
 import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
+import com.currentweather.data.repository.SearchRepository
 import com.mahshad.datasource.model.currentweather.CurrentWeather
 import com.mahshad.datasource.model.forecast.Forecast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,11 +23,65 @@ import javax.inject.Inject
 class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val currentWeatherRepository: CurrentWeatherRepository,
     private val forecastRepository: ForecastRepository,
-    private val locationRepository: LocationRepository
+    private val locationRepository: LocationRepository,
+    private val searchRepository: SearchRepository
 ) : ViewModel() {
 
-    private val weatherUIState = MutableStateFlow<WeatherUIState>(WeatherUIState.Idle)
-    val _weatherUIState: StateFlow<WeatherUIState> = weatherUIState
+    private val _locationPermissionGranted = MutableStateFlow(false)
+    val locationPermissionGranted = _locationPermissionGranted.asStateFlow()
+
+    private val _locationEnabled = MutableStateFlow(false)
+    val locationEnabled = _locationEnabled.asStateFlow()
+
+    private val _requestLocationPermissions = MutableStateFlow(false)
+    val requestLocationPermissions = _requestLocationPermissions.asStateFlow()
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
+    private val _searchLocationResults = MutableStateFlow<List<String>>(emptyList())
+    val searchLocationResults = _searchLocationResults.asStateFlow()
+
+    private val _weatherUIState = MutableStateFlow<WeatherUIState>(WeatherUIState.Idle)
+    val weatherUIState: StateFlow<WeatherUIState> = _weatherUIState
+
+    private fun checkLocationPermission() {
+        val hasPermission = locationRepository.hasLocationPermissions()
+        _locationPermissionGranted.value = hasPermission
+        if (!hasPermission) {
+            _requestLocationPermissions.value = true
+            _weatherUIState.value =
+                WeatherUIState.Error(errorType = ErrorType.LocationPermissionDenied)
+        }
+    }
+
+    private fun trackLocationEnabledStatus() {
+        locationRepository.isLocationEnabled()
+            .onEach { isEnabled ->
+                _locationEnabled.value = isEnabled
+                if (!isEnabled) {
+                    _weatherUIState.value =
+                        WeatherUIState.Error(errorType = ErrorType.LocationServicesDisabled)
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    private fun fetchWeatherOnPermissionChange() {
+        combine(locationPermissionGranted, locationEnabled) { permissionGranted, locationEnabled ->
+            permissionGranted && locationEnabled
+        }.onEach { shouldFetch ->
+            if (shouldFetch) {
+//                fetchWeatherOnLocation()
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    fun startLocationWeatherUpdates() {
+        trackLocationEnabledStatus()
+        checkLocationPermission()
+        fetchWeatherOnPermissionChange()
+    }
 
     fun getCurrentWeather(q: String, api: String) {
         viewModelScope.launch {

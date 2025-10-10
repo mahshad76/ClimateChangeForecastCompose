@@ -2,6 +2,7 @@ package com.mahshad.network
 
 import com.mahshad.network.models.currentweather.CurrentWeatherDTO
 import com.mahshad.network.models.forecast.ForecastDTO
+import com.mahshad.network.models.search.SearchDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -26,9 +27,9 @@ interface ApiService {
     ):
             Response<ForecastDTO>
 
-//    @GET("search.json")
-//    suspend fun searchLocation(
-//        @Query("q") cityName: String
-//    ):
-//            Response<List<SearchDTO>>
+    @GET("search.json")
+    suspend fun searchLocation(
+        @Query("q") cityName: String
+    ):
+            Response<List<SearchDTO>>
 }
