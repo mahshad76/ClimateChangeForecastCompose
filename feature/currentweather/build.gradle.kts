@@ -43,6 +43,7 @@ dependencies {
     //Projects
     implementation(projects.core.datasource)
     implementation(projects.feature.common)
+    implementation(projects.core.location)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
