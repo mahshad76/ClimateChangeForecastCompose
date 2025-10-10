@@ -29,7 +29,7 @@ class DefaultWeatherDataSourceTest {
             // Given
             apiService.enableError = true
             // When
-            val result = weatherDataSource.getCurrentWeather("", 0, "", "")
+            val result = weatherDataSource.getCurrentWeather("London", "no")
             // Then
             assertEquals(result.isSuccess, false)
             if (result.isFailure) {
@@ -50,7 +50,7 @@ class DefaultWeatherDataSourceTest {
     fun `getCurrentWeather_withSuccessfulResponse_returnsSuccessfulResult`() =
         runTest(testScheduler) {
             // When
-            val result = weatherDataSource.getCurrentWeather("", 0, "", "")
+            val result = weatherDataSource.getCurrentWeather("London", "no")
             // Then
             assertEquals(result.isSuccess, true)
         }
@@ -60,12 +60,61 @@ class DefaultWeatherDataSourceTest {
         // Given
         apiService.nullifyForbiddenAttributes = true
         // When
-        val result = weatherDataSource.getCurrentWeather("", 0, "", "")
+        val result = weatherDataSource.getCurrentWeather("London", "no")
         // Then
         assertEquals(result.isSuccess, false)
         if (result.isFailure) {
             assertEquals(
                 "CurrentDTO is missing for CurrentWeather and cannot be null.",
+                result.exceptionOrNull()?.message
+            )
+        }
+    }
+
+
+    @Test
+    fun `getForecastWeather_withUnsuccessfulResponse_returnsFailureResult`() =
+        runTest(testScheduler) {
+            // Given
+            apiService.enableError = true
+            // When
+            val result = weatherDataSource.getForecastWeather(
+                "London", 1, false, false
+            )
+            // Then
+            assertEquals(result.isSuccess, false)
+            if (result.isFailure) {
+                assertEquals(
+                    "the response body is not successful",
+                    result.exceptionOrNull()?.message
+                )
+            }
+        }
+
+    @Test
+    fun `getForecastWeather_withSuccessfulResponse_returnsSuccessfulResult`() =
+        runTest(testScheduler) {
+            // When
+            val result = weatherDataSource.getForecastWeather(
+                "London", 1, false, false
+            )
+            // Then
+            assertEquals(result.isSuccess, true)
+        }
+
+    @Test
+    fun `getForecastWeather_withNullParameter_returnsFailureResult`() = runTest(testDispatcher) {
+        // Given
+        apiService.nullifyForbiddenAttributes = true
+        // When
+        val result = weatherDataSource.getForecastWeather(
+            "London", 1, false, false
+        )
+        // Then
+        assertEquals(result.isSuccess, false)
+        if (result.isFailure) {
+            assertEquals(
+                "CurrentDTO is missing for Forecast and cannot be null.",
                 result.exceptionOrNull()?.message
             )
         }

@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.mahshad.cimatechangeforecast" />
+                  <option name="mobileSdkAppId" value="1:324817647657:android:aef5c0c8173626850d4438" />
+                  <option name="projectId" value="climatechangeforecast-da81a" />
+                  <option name="projectNumber" value="324817647657" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

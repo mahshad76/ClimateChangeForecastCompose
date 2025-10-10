@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.kotlin.ksp)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -56,11 +57,18 @@ dependencies {
     // projects
     implementation(projects.feature.currentweather)
     implementation(projects.feature.forecast)
+    implementation(projects.core.notification)
+
     implementation(libs.navigation.compose)
 
     // di
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.cloud.messaging)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

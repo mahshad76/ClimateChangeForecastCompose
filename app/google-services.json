@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "324817647657",
+    "project_id": "climatechangeforecast-da81a",
+    "storage_bucket": "climatechangeforecast-da81a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:324817647657:android:aef5c0c8173626850d4438",
+        "android_client_info": {
+          "package_name": "com.mahshad.cimatechangeforecast"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnyT8VMwEn_-rvB5C9gEF4AztTqmEbMqg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

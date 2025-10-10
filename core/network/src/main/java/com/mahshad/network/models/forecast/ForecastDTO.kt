@@ -20,5 +20,10 @@ data class ForecastDTO(
             CurrentDTO.DEFAULT,
             ForecastWeatherDTO.DEFAULT
         )
+        val DEFAULT2 = ForecastDTO(
+            null,
+            null,
+            null
+        )
     }
 }

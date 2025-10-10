@@ -16,13 +16,9 @@ class ApiServiceFake(
 ) : ApiService {
     val mediaType = "text/plain; charset=utf-8".toMediaType()
     val errorResponseBody = ERROR_STRING.toResponseBody(mediaType)
-    val errorResponse: Response<CurrentWeatherDTO> = Response.error(
-        400,
-        errorResponseBody
-    )
 
     override suspend fun getCurrentWeather(q: String, api: String): Response<CurrentWeatherDTO> =
-        if (enableError) errorResponse
+        if (enableError) Response<CurrentWeatherDTO>.error(400, errorResponseBody)
         else
             if (nullifyForbiddenAttributes) Response.success(CurrentWeatherDTO.DEFAULT2)
             else Response.success(CurrentWeatherDTO.DEFAULT)
@@ -32,12 +28,9 @@ class ApiServiceFake(
         days: Int,
         aqi: Boolean,
         alerts: Boolean
-    ): Response<ForecastDTO> {
-        if (enableError) errorResponse
+    ): Response<ForecastDTO> =
+        if (enableError) Response<ForecastDTO>.error(400, errorResponseBody)
         else
-    }
-
-//    override suspend fun searchLocation(cityName: String): Response<List<SearchDTO>> {
-//
-//    }
+            if (nullifyForbiddenAttributes) Response.success(ForecastDTO.DEFAULT2)
+            else Response.success(ForecastDTO.DEFAULT)
 }

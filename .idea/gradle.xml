@@ -16,6 +16,7 @@
             <option value="$PROJECT_DIR$/core/datasource" />
             <option value="$PROJECT_DIR$/core/location" />
             <option value="$PROJECT_DIR$/core/network" />
+            <option value="$PROJECT_DIR$/core/notification" />
             <option value="$PROJECT_DIR$/core/threading" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/common" />
