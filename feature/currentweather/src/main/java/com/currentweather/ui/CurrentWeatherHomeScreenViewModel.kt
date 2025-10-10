@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currentweather.data.repository.CurrentWeatherRepository
+import com.currentweather.data.repository.ForecastRepository
 import com.mahshad.common.Response
 import com.mahshad.datasource.model.currentweather.CurrentWeather
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CurrentWeatherHomeScreenViewModel @Inject constructor(
-    private val currentWeatherRepository: CurrentWeatherRepository
+    private val currentWeatherRepository: CurrentWeatherRepository,
+    private val forecastRepository: ForecastRepository
 ) : ViewModel() {
     private val _currentWeatherUiState = MutableStateFlow<Response<CurrentWeather>>(
         Response.Loading
@@ -26,6 +28,21 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
             val result = currentWeatherRepository.getCurrentWeather(q, api)
             when (result.isSuccess) {
                 true -> Log.d("TAG", "getCurrentWeather: ${result.getOrNull()}")
+                false -> Log.d("TAG", "error: ${result.exceptionOrNull()}")
+            }
+        }
+    }
+
+    fun getForecast(
+        location: String,
+        dates: Int,
+        aqi: Boolean,
+        api: Boolean
+    ) {
+        viewModelScope.launch {
+            val result = forecastRepository.getForecast(location, dates, aqi, api)
+            when (result.isSuccess) {
+                true -> Log.d("TAG", "getForecast: ${result.getOrNull()}")
                 false -> Log.d("TAG", "error: ${result.exceptionOrNull()}")
             }
         }
