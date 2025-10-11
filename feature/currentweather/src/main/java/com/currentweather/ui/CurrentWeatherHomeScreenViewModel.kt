@@ -1,19 +1,27 @@
 package com.currentweather.ui
 
-import android.util.Log
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.currentweather.data.repository.CurrentWeatherRepository
 import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchRepository
+import com.mahshad.common.R
+import com.mahshad.common.model.error.RepositoryError
 import com.mahshad.datasource.model.currentweather.CurrentWeather
 import com.mahshad.datasource.model.forecast.Forecast
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -42,8 +50,54 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val _searchLocationResults = MutableStateFlow<List<String>>(emptyList())
     val searchLocationResults = _searchLocationResults.asStateFlow()
 
+    private val _searchLocation = MutableStateFlow("")
+    val searchLocation = _searchLocation.asStateFlow()
+
     private val _weatherUIState = MutableStateFlow<WeatherUIState>(WeatherUIState.Idle)
     val weatherUIState: StateFlow<WeatherUIState> = _weatherUIState
+
+    private val _weatherUIData = MutableStateFlow(getWeatherUI(""))
+    val weatherUIData = _weatherUIData.asStateFlow()
+
+    fun observeSearchLocation() {
+        _searchLocation
+            .debounce(300)
+            .distinctUntilChanged()
+            .onEach { cityName ->
+                if (cityName.isNotBlank()) {
+                    searchLocationApiCall(cityName)
+                } else {
+                    _searchLocationResults.value = emptyList()
+                }
+            }
+            .launchIn(viewModelScope)
+    }
+
+    fun updateSearchLocation(cityName: String) {
+        _searchLocation.value = cityName
+    }
+
+    fun searchLocationApiCall(cityName: String) {
+        viewModelScope.launch {
+            val result = searchRepository.searchLocation(cityName)
+            result.onSuccess { locations ->
+                _searchLocationResults.value = locations.map { "${it.name}, ${it.country}" }
+            }.onFailure {
+                _searchLocationResults.value = emptyList()
+            }
+        }
+    }
+
+    private fun extractCityName(formattedLocationString: String): String {
+        return formattedLocationString.split(",").firstOrNull()?.trim() ?: formattedLocationString
+    }
+
+    fun handleSearchResultClick(formattedLocationString: String) {
+        val cityName = extractCityName(formattedLocationString)
+        updateSearchLocation(cityName)
+        _searchLocationResults.value = emptyList()
+        fetchWeatherOnLocation()
+    }
 
     private fun checkLocationPermission() {
         val hasPermission = locationRepository.hasLocationPermissions()
@@ -67,47 +121,129 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    private fun fetchWeatherOnPermissionChange() {
-        combine(locationPermissionGranted, locationEnabled) { permissionGranted, locationEnabled ->
-            permissionGranted && locationEnabled
-        }.onEach { shouldFetch ->
-            if (shouldFetch) {
-//                fetchWeatherOnLocation()
-            }
-        }.launchIn(viewModelScope)
-    }
-
     fun startLocationWeatherUpdates() {
         trackLocationEnabledStatus()
         checkLocationPermission()
         fetchWeatherOnPermissionChange()
     }
 
-    fun getCurrentWeather(q: String, api: String) {
+    @Suppress("UNCHECKED_CAST")
+    private fun fetchWeatherOnLocation(isRefreshing: Boolean = false) {
+        if (!isRefreshing && _searchLocation.value.isEmpty() && _weatherUIState.value is WeatherUIState.Success) {
+            return
+        }
+
+        if (isRefreshing) {
+            _isRefreshing.value = true
+        } else {
+            _weatherUIState.value = WeatherUIState.Loading
+        }
+
         viewModelScope.launch {
-            val result = currentWeatherRepository.getCurrentWeather(q, api)
-            when (result.isSuccess) {
-                true -> Log.d("TAG", "getCurrentWeather: ${result.getOrNull()}")
-                false -> Log.d("TAG", "error: ${result.exceptionOrNull()}")
+            try {
+                val locationString = _searchLocation.value.ifEmpty {
+                    val location = locationRepository.getLocationUpdates().first()
+                    "${location.latitude},${location.longitude}"
+                }
+                val (currentWeather, forecast) = coroutineScope {
+                    val currentWeatherDeferred =
+                        async {
+                            currentWeatherRepository.getCurrentWeather(
+                                locationString, "no"
+                            )
+                        }
+                    val forecastDeferred =
+                        async {
+                            forecastRepository.getForecast(
+                                locationString, 1, false, false
+                            )
+                        }
+
+                    currentWeatherDeferred.await().getOrThrow() to forecastDeferred.await()
+                        .getOrThrow()
+                }
+
+                _weatherUIState.value = WeatherUIState.Success(
+                    currentWeather = currentWeather,
+                    forecast = forecast
+                )
+
+                _weatherUIData.value = getWeatherUI(currentWeather.current.condition.text)
+            } catch (e: Exception) {
+                val errorType = when (e) {
+                    is RepositoryError.NetworkError -> ErrorType.NetworkError
+                    is RepositoryError.NoDataError -> ErrorType.NoDataError
+                    is RepositoryError.MappingError -> ErrorType.MappingError
+                    else -> ErrorType.UnknownError
+                }
+                _weatherUIState.value = WeatherUIState.Error(errorType = errorType)
+            } finally {
+                if (isRefreshing) {
+                    _isRefreshing.value = false
+                }
             }
         }
     }
 
-    fun getForecast(
-        location: String,
-        dates: Int,
-        aqi: Boolean,
-        api: Boolean
-    ) {
-        viewModelScope.launch {
-            val result = forecastRepository.getForecast(location, dates, aqi, api)
-            when (result.isSuccess) {
-                true -> Log.d("TAG", "getForecast: ${result.getOrNull()}")
-                false -> Log.d("TAG", "error: ${result.exceptionOrNull()}")
+    private fun fetchWeatherOnPermissionChange() {
+        combine(locationPermissionGranted, locationEnabled) { permissionGranted, locationEnabled ->
+            permissionGranted && locationEnabled
+        }.onEach { shouldFetch ->
+            if (shouldFetch) {
+                fetchWeatherOnLocation()
             }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getWeatherUI(text: String): WeatherUI {
+        return when {
+            text.lowercase().contains("sun") ->
+                WeatherUI(
+                    backgroundImageResource = R.drawable.ic_sunny,
+                    backgroundColorResource = R.color.light_beige
+                )
+
+            text.lowercase().contains("cloud") || text.lowercase().contains("wind") ->
+                WeatherUI(
+                    backgroundImageResource = R.drawable.ic_cloudy,
+                    backgroundColorResource = R.color.pale_blue
+                )
+
+            text.lowercase().contains("rain") || text.lowercase()
+                .contains("drizzle") || text.lowercase()
+                .contains("snow") ->
+                WeatherUI(
+                    backgroundImageResource = R.drawable.ic_rainy,
+                    backgroundColorResource = R.color.dark_shade_blue,
+                    textColorResource = R.color.white
+                )
+
+            else ->
+                WeatherUI(
+                    R.drawable.ic_cloudy, R.color.pale_blue
+                )
         }
     }
+
+    fun onLocationPermissionsGranted() {
+        _locationPermissionGranted.value = true
+        _requestLocationPermissions.value = false
+    }
+
+    fun permissionRequestHandled() {
+        _requestLocationPermissions.value = false
+    }
+
+    fun retryFetchWeather(isRefreshing: Boolean = false) {
+        fetchWeatherOnLocation(isRefreshing = isRefreshing)
+    }
 }
+
+data class WeatherUI(
+    @DrawableRes val backgroundImageResource: Int,
+    @ColorRes val backgroundColorResource: Int,
+    @ColorRes val textColorResource: Int = R.color.black
+)
 
 /**
  * Represents the different states of the weather UI.
