@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.LocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.mahshad.location.DefaultLocationProvider
 import com.mahshad.location.LocationProvider
 import dagger.Binds
 import dagger.Module
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 abstract class LocationModule {
     @Binds
     @Singleton
-    abstract fun bindLocationProvider(): LocationProvider
+    abstract fun bindLocationProvider(defaultLocationProvider: DefaultLocationProvider): LocationProvider
 
     companion object {
         @Provides

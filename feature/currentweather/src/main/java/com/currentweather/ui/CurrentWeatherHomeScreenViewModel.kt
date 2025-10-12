@@ -32,16 +32,16 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val currentWeatherRepository: CurrentWeatherRepository,
     private val forecastRepository: ForecastRepository,
     private val locationRepository: LocationRepository,
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
+    private val _searchLocation: MutableStateFlow<String> = MutableStateFlow(""),
+    private val _locationPermissionGranted: MutableStateFlow<Boolean> = MutableStateFlow(false),
+    private val _locationEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false),
+    private val _requestLocationPermissions: MutableStateFlow<Boolean> = MutableStateFlow(false)
 ) : ViewModel() {
-
-    private val _locationPermissionGranted = MutableStateFlow(false)
     val locationPermissionGranted = _locationPermissionGranted.asStateFlow()
 
-    private val _locationEnabled = MutableStateFlow(false)
     val locationEnabled = _locationEnabled.asStateFlow()
 
-    private val _requestLocationPermissions = MutableStateFlow(false)
     val requestLocationPermissions = _requestLocationPermissions.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -50,7 +50,6 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val _searchLocationResults = MutableStateFlow<List<String>>(emptyList())
     val searchLocationResults = _searchLocationResults.asStateFlow()
 
-    private val _searchLocation = MutableStateFlow("")
     val searchLocation = _searchLocation.asStateFlow()
 
     private val _weatherUIState = MutableStateFlow<WeatherUIState>(WeatherUIState.Idle)
@@ -82,6 +81,7 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
             val result = searchRepository.searchLocation(cityName)
             result.onSuccess { locations ->
                 _searchLocationResults.value = locations.map { "${it.name}, ${it.country}" }
+
             }.onFailure {
                 _searchLocationResults.value = emptyList()
             }
@@ -119,6 +119,16 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
                 }
             }
             .launchIn(viewModelScope)
+    }
+
+    private fun fetchWeatherOnPermissionChange() {
+        combine(locationPermissionGranted, locationEnabled) { permissionGranted, locationEnabled ->
+            permissionGranted && locationEnabled
+        }.onEach { shouldFetch ->
+            if (shouldFetch) {
+                fetchWeatherOnLocation()
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun startLocationWeatherUpdates() {
@@ -183,16 +193,6 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
                 }
             }
         }
-    }
-
-    private fun fetchWeatherOnPermissionChange() {
-        combine(locationPermissionGranted, locationEnabled) { permissionGranted, locationEnabled ->
-            permissionGranted && locationEnabled
-        }.onEach { shouldFetch ->
-            if (shouldFetch) {
-                fetchWeatherOnLocation()
-            }
-        }.launchIn(viewModelScope)
     }
 
     private fun getWeatherUI(text: String): WeatherUI {
