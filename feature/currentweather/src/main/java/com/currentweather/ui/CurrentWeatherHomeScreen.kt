@@ -1,13 +1,22 @@
 package com.currentweather.ui
 
 import android.Manifest
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.currentweather.ui.component.CustomSearchBar
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
@@ -56,6 +65,32 @@ fun CurrentWeatherHomeScreen(
 
     LaunchedEffect(Unit) {
         viewModel.observeSearchLocation()
+    }
+
+    Scaffold(
+        topBar = {
+            AnimatedVisibility(locationPermissionGranted && locationEnabled) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(appBarColor)
+                ) {
+                    CustomSearchBar(
+                        query = searchLocation,
+                        onQueryChange = viewModel::updateSearchLocation,
+                        onSearch = viewModel::searchLocationApiCall,
+                        searchResults = searchLocationResults,
+                        onResultClick = {
+                            viewModel.handleSearchResultClick(it)
+                        }
+                    )
+                }
+            }
+        }) { innerPadding ->
+        Text(
+            "",
+            modifier = Modifier.padding(innerPadding)
+        )
     }
 
 //    viewModel.getCurrentWeather(
