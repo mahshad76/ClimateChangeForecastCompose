@@ -87,10 +87,12 @@ fun CurrentWeatherHomeScreen(
                 }
             }
         }) { innerPadding ->
-        Text(
-            "",
-            modifier = Modifier.padding(innerPadding)
-        )
+        when (val result = weatherUIState) {
+            is WeatherUIState.Error -> TODO()
+            WeatherUIState.Idle -> TODO()
+            WeatherUIState.Loading -> TODO()
+            is WeatherUIState.Success -> TODO()
+        }
     }
 
 //    viewModel.getCurrentWeather(
