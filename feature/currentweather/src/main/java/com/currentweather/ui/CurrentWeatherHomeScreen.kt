@@ -1,13 +1,13 @@
 package com.currentweather.ui
 
 import android.Manifest
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -17,6 +17,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.currentweather.ui.component.CustomSearchBar
+import com.currentweather.ui.component.LoadingContent
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 
@@ -88,10 +89,15 @@ fun CurrentWeatherHomeScreen(
             }
         }) { innerPadding ->
         when (val result = weatherUIState) {
-            is WeatherUIState.Error -> TODO()
-            WeatherUIState.Idle -> TODO()
-            WeatherUIState.Loading -> TODO()
-            is WeatherUIState.Success -> TODO()
+            is WeatherUIState.Error -> Log.d("TAG", "error")
+            WeatherUIState.Idle, WeatherUIState.Loading -> LoadingContent()
+            is WeatherUIState.Success -> SuccessContent(
+                currentWeather = result.currentWeather,
+                forecast = result.forecast,
+                weatherData = weatherUIData,
+                modifier = Modifier.padding(innerPadding),
+                onNavigateToDetail = onNavigateToForecastGraph
+            )
         }
     }
 
