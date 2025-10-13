@@ -61,6 +61,9 @@ dependencies {
     // Compose
     implementation(libs.material3)
 
+    // Location permission
+    implementation(libs.accompanist.permissions)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
