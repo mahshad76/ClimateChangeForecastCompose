@@ -4,6 +4,7 @@ package com.mahshad.datasource.remote
 import com.mahshad.network.ApiService
 import com.mahshad.network.models.currentweather.CurrentWeatherDTO
 import com.mahshad.network.models.forecast.ForecastDTO
+import com.mahshad.network.models.search.SearchDTO
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
@@ -33,4 +34,8 @@ class ApiServiceFake(
         else
             if (nullifyForbiddenAttributes) Response.success(ForecastDTO.DEFAULT2)
             else Response.success(ForecastDTO.DEFAULT)
+
+    override suspend fun searchLocation(cityName: String): Response<List<SearchDTO>> =
+        if (enableError) Response<SearchDTO>.error(400, errorResponseBody)
+        else Response.success(listOf(SearchDTO.DEFAULT))
 }

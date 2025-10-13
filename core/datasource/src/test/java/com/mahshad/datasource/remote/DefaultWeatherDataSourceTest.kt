@@ -1,5 +1,6 @@
 package com.mahshad.datasource.remote
 
+import com.mahshad.datasource.model.search.Search
 import com.mahshad.network.ApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -39,12 +40,6 @@ class DefaultWeatherDataSourceTest {
                 )
             }
         }
-
-//    @Test
-//    fun `getCurrentWeather_withNullSuccessfulResponse_returnsFailureResult`() =
-//        runTest(testScheduler) {
-//
-//        }
 
     @Test
     fun `getCurrentWeather_withSuccessfulResponse_returnsSuccessfulResult`() =
@@ -119,4 +114,44 @@ class DefaultWeatherDataSourceTest {
             )
         }
     }
+
+    @Test
+    fun `searchLocation_withUnsuccessfulResponse_returnsFailureResult`() =
+        runTest(testDispatcher) {
+            // GIVEN
+            apiService.enableError = true
+            // WHEN
+            val result = weatherDataSource.searchLocation("")
+            // THEN
+            result.fold(
+                { Throwable("") },
+                {
+                    assertEquals(
+                        "the response body is not successful",
+                        result.exceptionOrNull()?.message
+                    )
+                }
+            )
+        }
+
+    @Test
+    fun `searchLocation_withUnsuccessfulResponse_returnsSuccessfulResult`() =
+        runTest(testDispatcher) {
+            // GIVEN
+            apiService.enableError = false
+            // WHEN
+            val result = weatherDataSource.searchLocation("")
+            // THEN
+            result.fold(
+                {
+                    assertEquals(
+                        listOf(Search.DEFAULT),
+                        it
+                    )
+                },
+                {
+                    Throwable("")
+                }
+            )
+        }
 }

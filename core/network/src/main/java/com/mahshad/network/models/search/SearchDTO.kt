@@ -12,4 +12,16 @@ data class SearchDTO(
     @SerialName("lat") var lat: Double? = null,
     @SerialName("lon") var lon: Double? = null,
     @SerialName("url") var url: String? = null
-)
+) {
+    companion object {
+        val DEFAULT = SearchDTO(
+            id = 0,
+            name = "",
+            region = "",
+            country = "",
+            lon = 0.0,
+            lat = 0.0,
+            url = ""
+        )
+    }
+}
