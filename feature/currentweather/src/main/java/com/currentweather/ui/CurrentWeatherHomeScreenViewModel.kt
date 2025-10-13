@@ -8,6 +8,9 @@ import com.currentweather.data.repository.CurrentWeatherRepository
 import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchRepository
+import com.currentweather.di.LocationEnabled
+import com.currentweather.di.LocationPermissionGranted
+import com.currentweather.di.LocationPermissions
 import com.mahshad.common.R
 import com.mahshad.common.model.error.RepositoryError
 import com.mahshad.datasource.model.currentweather.CurrentWeather
@@ -33,10 +36,10 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val forecastRepository: ForecastRepository,
     private val locationRepository: LocationRepository,
     private val searchRepository: SearchRepository,
-    private val _searchLocation: MutableStateFlow<String> = MutableStateFlow(""),
-    private val _locationPermissionGranted: MutableStateFlow<Boolean> = MutableStateFlow(false),
-    private val _locationEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false),
-    private val _requestLocationPermissions: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _searchLocation: MutableStateFlow<String>,
+    @LocationPermissionGranted private val _locationPermissionGranted: MutableStateFlow<Boolean>,
+    @LocationEnabled private val _locationEnabled: MutableStateFlow<Boolean>,
+    @LocationPermissions private val _requestLocationPermissions: MutableStateFlow<Boolean>
 ) : ViewModel() {
     val locationPermissionGranted = _locationPermissionGranted.asStateFlow()
 
