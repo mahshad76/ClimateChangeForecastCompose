@@ -6,6 +6,7 @@ import com.currentweather.data.repository.SearchRepository
 import com.currentweather.ui.CurrentWeatherHomeScreenViewModel
 import com.currentweather.ui.ErrorType
 import com.currentweather.ui.WeatherUIState
+import com.mahshad.common.model.error.RepositoryError
 import com.mahshad.datasource.model.currentweather.CurrentWeather
 import com.mahshad.datasource.model.forecast.Forecast
 import com.mahshad.datasource.model.search.Search
@@ -180,6 +181,7 @@ class CurrentWeatherHomeScreenViewModelTest {
             // WHEN
             viewModel.startLocationWeatherUpdates()
             testScheduler.advanceUntilIdle()
+            // THEN
             coVerify(exactly = 1) { locationRepository.isLocationEnabled() }
             coVerify(exactly = 1) { locationRepository.hasLocationPermissions() }
             viewModel.weatherUIState.test {
@@ -198,6 +200,44 @@ class CurrentWeatherHomeScreenViewModelTest {
             coVerify(exactly = 1) {
                 forecastRepository.getForecast(
                     eq(expectedLocationString), 1, false, false
+                )
+            }
+        }
+
+    @Test
+    fun `startLocationWeatherUpdates_whenRepositoryGivesNetworkError_thenWeatherUIStateIsError`() =
+        runTest {
+            // GIVEN
+            val DEFAULT_LATITUDE = 40.7128
+            val DEFAULT_LONGITUDE = -74.0060
+            val location = mockk<android.location.Location>(relaxed = true) {
+                every { latitude } returns DEFAULT_LATITUDE
+                every { longitude } returns DEFAULT_LONGITUDE
+                every { provider } returns "mock_provider"
+            }
+            coEvery { locationRepository.isLocationEnabled() } returns flow { emit(true) }
+            coEvery { locationRepository.hasLocationPermissions() } returns true
+            coEvery { locationRepository.getLocationUpdates() } returns flow {
+                emit(location)
+            }
+            coEvery { currentWeatherRepository.getCurrentWeather(any(), "no") } returns
+                    Result.failure(RepositoryError.NetworkError(404))
+            coEvery {
+                forecastRepository.getForecast(
+                    any(),
+                    1,
+                    false,
+                    false
+                )
+            } returns Forecast.DEFAULT
+            // WHEN
+            viewModel.startLocationWeatherUpdates()
+            testScheduler.advanceUntilIdle()
+            // THEN
+            viewModel.weatherUIState.test {
+                assertEquals(
+                    WeatherUIState.Error(errorType = ErrorType.NetworkError),
+                    awaitItem()
                 )
             }
         }
