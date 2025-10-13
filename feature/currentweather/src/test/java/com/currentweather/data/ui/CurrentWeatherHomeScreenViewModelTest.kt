@@ -1,18 +1,26 @@
+
 import app.cash.turbine.test
 import com.currentweather.data.repository.CurrentWeatherRepository
 import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchRepository
 import com.currentweather.ui.CurrentWeatherHomeScreenViewModel
+import com.currentweather.ui.ErrorType
+import com.currentweather.ui.WeatherUIState
+import com.mahshad.datasource.model.currentweather.CurrentWeather
+import com.mahshad.datasource.model.forecast.Forecast
 import com.mahshad.datasource.model.search.Search
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
 import io.mockk.unmockkAll
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
@@ -39,6 +47,9 @@ class CurrentWeatherHomeScreenViewModelTest {
     @MockK
     lateinit var searchRepository: SearchRepository
     private val _searchLocation: MutableStateFlow<String> = MutableStateFlow("")
+    private val _locationPermissionGranted: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _locationEnabled: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val _requestLocationPermissions: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private lateinit var viewModel: CurrentWeatherHomeScreenViewModel
 
     @Before
@@ -50,18 +61,15 @@ class CurrentWeatherHomeScreenViewModelTest {
             forecastRepository,
             locationRepository,
             searchRepository,
-            _searchLocation
+            _searchLocation,
+            _locationPermissionGranted,
+            _locationEnabled,
+            _requestLocationPermissions
         )
     }
 
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
-        unmockkAll()
-    }
-
     @Test
-    fun `observeSearchLocation_multiple queries are emitted fast and repetitive_only the last one is processed`() =
+    fun `observeSearchLocation_multipleFastAndRepetitiveQueriesEmitted_onlyLastOneProcessed`() =
         runTest {
             // GIVEN
             coEvery { searchRepository.searchLocation(any()) } returns
@@ -105,5 +113,100 @@ class CurrentWeatherHomeScreenViewModelTest {
             }
         }
 
+    @Test
+    fun `startLocationWeatherUpdates_whenTrackingOff_thenLocationServicesDisabledError`() =
+        runTest {
+            // GIVEN
+            coEvery { locationRepository.isLocationEnabled() } returns flow { emit(false) }
+            coEvery { locationRepository.hasLocationPermissions() } returns true
+            // WHEN
+            viewModel.startLocationWeatherUpdates()
+            testScheduler.advanceUntilIdle()
+            // THEN
+            viewModel.weatherUIState.test {
+                assertEquals(
+                    WeatherUIState.Error(errorType = ErrorType.LocationServicesDisabled),
+                    awaitItem()
+                )
+                cancel()
+            }
+        }
+
+    @Test
+    fun `startLocationWeatherUpdates_whenTrackingOnButPermissionOff_thenLocationPermissionDeniedError`() =
+        runTest {
+            // GIVEN
+            coEvery { locationRepository.isLocationEnabled() } returns flow { emit(true) }
+            coEvery { locationRepository.hasLocationPermissions() } returns false
+            // WHEN
+            viewModel.startLocationWeatherUpdates()
+            testScheduler.advanceUntilIdle()
+            // THEN
+            viewModel.weatherUIState.test {
+                assertEquals(
+                    WeatherUIState.Error(errorType = ErrorType.LocationPermissionDenied),
+                    awaitItem()
+                )
+                cancel()
+            }
+
+        }
+
+    @Test
+    fun `startLocationWeatherUpdates_whenLocationServiceAndPermissionAreOn_thenWeatherUIStateIsSuccessful`() =
+        runTest {
+            // GIVEN
+            val DEFAULT_LATITUDE = 40.7128
+            val DEFAULT_LONGITUDE = -74.0060
+            val location = mockk<android.location.Location>(relaxed = true) {
+                every { latitude } returns DEFAULT_LATITUDE
+                every { longitude } returns DEFAULT_LONGITUDE
+                every { provider } returns "mock_provider"
+            }
+            coEvery { locationRepository.isLocationEnabled() } returns flow { emit(true) }
+            coEvery { locationRepository.hasLocationPermissions() } returns true
+            coEvery { locationRepository.getLocationUpdates() } returns flow {
+                emit(location)
+            }
+            coEvery { currentWeatherRepository.getCurrentWeather(any(), "no") } returns
+                    Result.success(CurrentWeather.DEFAULT)
+            coEvery {
+                forecastRepository.getForecast(
+                    any(),
+                    1,
+                    false,
+                    false
+                )
+            } returns Forecast.DEFAULT
+            // WHEN
+            viewModel.startLocationWeatherUpdates()
+            testScheduler.advanceUntilIdle()
+            coVerify(exactly = 1) { locationRepository.isLocationEnabled() }
+            coVerify(exactly = 1) { locationRepository.hasLocationPermissions() }
+            viewModel.weatherUIState.test {
+                assertEquals(
+                    true,
+                    awaitItem() is WeatherUIState.Success
+                )
+            }
+            val expectedLocationString = "$DEFAULT_LATITUDE,$DEFAULT_LONGITUDE"
+            coVerify(exactly = 1) {
+                currentWeatherRepository.getCurrentWeather(
+                    eq(expectedLocationString),
+                    eq("no")
+                )
+            }
+            coVerify(exactly = 1) {
+                forecastRepository.getForecast(
+                    eq(expectedLocationString), 1, false, false
+                )
+            }
+        }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        unmockkAll()
+    }
 
 }
