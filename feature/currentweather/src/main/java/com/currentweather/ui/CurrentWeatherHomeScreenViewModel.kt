@@ -8,9 +8,6 @@ import com.currentweather.data.repository.CurrentWeatherRepository
 import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchRepository
-import com.currentweather.di.LocationEnabled
-import com.currentweather.di.LocationPermissionGranted
-import com.currentweather.di.LocationPermissions
 import com.mahshad.common.R
 import com.mahshad.common.model.error.RepositoryError
 import com.mahshad.datasource.model.currentweather.CurrentWeather
@@ -27,24 +24,26 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//TODO(lines 40 to 43 written in an update function)
 @HiltViewModel
 class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val currentWeatherRepository: CurrentWeatherRepository,
     private val forecastRepository: ForecastRepository,
     private val locationRepository: LocationRepository,
     private val searchRepository: SearchRepository,
-    private val _searchLocation: MutableStateFlow<String>,
-    @LocationPermissionGranted private val _locationPermissionGranted: MutableStateFlow<Boolean>,
-    @LocationEnabled private val _locationEnabled: MutableStateFlow<Boolean>,
-    @LocationPermissions private val _requestLocationPermissions: MutableStateFlow<Boolean>
 ) : ViewModel() {
+
+    private val _locationPermissionGranted = MutableStateFlow<Boolean>(false)
     val locationPermissionGranted = _locationPermissionGranted.asStateFlow()
 
+    private val _locationEnabled = MutableStateFlow<Boolean>(false)
     val locationEnabled = _locationEnabled.asStateFlow()
 
+    private val _requestLocationPermissions = MutableStateFlow<Boolean>(false)
     val requestLocationPermissions = _requestLocationPermissions.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
@@ -53,6 +52,7 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val _searchLocationResults = MutableStateFlow<List<String>>(emptyList())
     val searchLocationResults = _searchLocationResults.asStateFlow()
 
+    private val _searchLocation = MutableStateFlow<String>("")
     val searchLocation = _searchLocation.asStateFlow()
 
     private val _weatherUIState = MutableStateFlow<WeatherUIState>(WeatherUIState.Idle)
@@ -60,6 +60,24 @@ class CurrentWeatherHomeScreenViewModel @Inject constructor(
 
     private val _weatherUIData = MutableStateFlow(getWeatherUI(""))
     val weatherUIData = _weatherUIData.asStateFlow()
+
+    fun updateLocationPermissionGranted(value: Boolean) {
+        _locationPermissionGranted.update {
+            value
+        }
+    }
+
+    fun updateLocationEnabled(value: Boolean) {
+        _locationEnabled.update {
+            value
+        }
+    }
+
+    fun updateRequestLocationPermissions(value: Boolean) {
+        _requestLocationPermissions.update {
+            value
+        }
+    }
 
     fun observeSearchLocation() {
         _searchLocation

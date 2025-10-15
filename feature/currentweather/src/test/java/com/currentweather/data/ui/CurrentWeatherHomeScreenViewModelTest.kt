@@ -60,11 +60,7 @@ class CurrentWeatherHomeScreenViewModelTest {
             currentWeatherRepository,
             forecastRepository,
             locationRepository,
-            searchRepository,
-            _searchLocation,
-            _locationPermissionGranted,
-            _locationEnabled,
-            _requestLocationPermissions
+            searchRepository
         )
     }
 
@@ -77,13 +73,13 @@ class CurrentWeatherHomeScreenViewModelTest {
             // WHEN
             viewModel.observeSearchLocation()
             // GIVEN
-            _searchLocation.emit("New")
+            viewModel.updateSearchLocation("New")
             testScheduler.advanceTimeBy(30.milliseconds)
-            _searchLocation.emit("New Y")
+            viewModel.updateSearchLocation("New Y")
             testScheduler.advanceTimeBy(30.milliseconds)
-            _searchLocation.emit("New York")
+            viewModel.updateSearchLocation("New York")
             testScheduler.advanceTimeBy(300.milliseconds)
-            _searchLocation.emit("New York")
+            viewModel.updateSearchLocation("New York")
             testScheduler.advanceTimeBy(300.milliseconds)
             testScheduler.advanceUntilIdle()
             // THEN
