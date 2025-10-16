@@ -1,6 +1,6 @@
 package com.currentweather.data.repository
 
-import com.mahshad.datasource.data.forecast.Forecast
+import com.mahshad.common.model.datasource.models.forecast.Forecast
 import com.mahshad.datasource.remote.WeatherDataSource
 import io.mockk.MockKAnnotations
 import io.mockk.clearAllMocks

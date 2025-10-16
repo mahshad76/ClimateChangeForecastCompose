@@ -6,10 +6,10 @@ import com.currentweather.data.repository.SearchRepository
 import com.currentweather.ui.CurrentWeatherHomeScreenViewModel
 import com.currentweather.ui.ErrorType
 import com.currentweather.ui.WeatherUIState
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.forecast.Forecast
+import com.mahshad.common.model.datasource.models.search.Search
 import com.mahshad.common.model.error.RepositoryError
-import com.mahshad.datasource.data.currentweather.CurrentWeather
-import com.mahshad.datasource.data.forecast.Forecast
-import com.mahshad.datasource.data.search.Search
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coVerify
