@@ -1,13 +1,13 @@
 package com.currentweather.di
 
-import com.currentweather.data.repository.CurrentWeatherRepository
-import com.currentweather.data.repository.DefaultCurrentWeatherRepository
-import com.currentweather.data.repository.DefaultForecastRepository
-import com.currentweather.data.repository.DefaultLocationRepository
-import com.currentweather.data.repository.DefaultSearchRepository
-import com.currentweather.data.repository.ForecastRepository
-import com.currentweather.data.repository.LocationRepository
-import com.currentweather.data.repository.SearchRepository
+import com.mahshad.repository.CurrentWeatherRepository
+import com.mahshad.repository.DefaultCurrentWeatherRepository
+import com.mahshad.repository.DefaultForecastRepository
+import com.mahshad.repository.DefaultLocationRepository
+import com.mahshad.repository.DefaultSearchRepository
+import com.mahshad.repository.ForecastRepository
+import com.mahshad.repository.LocationRepository
+import com.mahshad.repository.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

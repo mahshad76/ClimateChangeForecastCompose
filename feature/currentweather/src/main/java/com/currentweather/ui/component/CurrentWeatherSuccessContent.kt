@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.common.model.extension.toFormattedTime
-import com.currentweather.ui.WeatherUI
+import com.mahshad.WeatherUI
 import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast

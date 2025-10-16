@@ -1,6 +1,7 @@
 package com.currentweather.data.repository
 
 import com.mahshad.location.LocationProvider
+import com.mahshad.repository.LocationRepository
 import io.mockk.impl.annotations.MockK
 import org.junit.After
 import org.junit.Before

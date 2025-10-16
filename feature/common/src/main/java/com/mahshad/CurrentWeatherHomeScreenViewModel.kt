@@ -1,13 +1,13 @@
-package com.currentweather.ui
+package com.mahshad
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.currentweather.data.repository.CurrentWeatherRepository
-import com.currentweather.data.repository.ForecastRepository
-import com.currentweather.data.repository.LocationRepository
-import com.currentweather.data.repository.SearchRepository
+import com.mahshad.repository.CurrentWeatherRepository
+import com.mahshad.repository.ForecastRepository
+import com.mahshad.repository.LocationRepository
+import com.mahshad.repository.SearchRepository
 import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
@@ -28,7 +28,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//TODO(lines 40 to 43 written in an update function)
 @HiltViewModel
 class CurrentWeatherHomeScreenViewModel @Inject constructor(
     private val currentWeatherRepository: CurrentWeatherRepository,

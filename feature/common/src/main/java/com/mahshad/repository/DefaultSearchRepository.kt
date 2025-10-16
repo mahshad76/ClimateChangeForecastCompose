@@ -1,4 +1,4 @@
-package com.currentweather.data.repository
+package com.mahshad.repository
 
 import com.mahshad.common.model.datasource.models.search.Search
 import com.mahshad.datasource.remote.WeatherDataSource

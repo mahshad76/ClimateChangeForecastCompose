@@ -1,8 +1,8 @@
 import app.cash.turbine.test
-import com.currentweather.data.repository.CurrentWeatherRepository
-import com.currentweather.data.repository.ForecastRepository
-import com.currentweather.data.repository.LocationRepository
-import com.currentweather.data.repository.SearchRepository
+import com.mahshad.repository.CurrentWeatherRepository
+import com.mahshad.repository.ForecastRepository
+import com.mahshad.repository.LocationRepository
+import com.mahshad.repository.SearchRepository
 import com.currentweather.ui.CurrentWeatherHomeScreenViewModel
 import com.currentweather.ui.ErrorType
 import com.currentweather.ui.WeatherUIState

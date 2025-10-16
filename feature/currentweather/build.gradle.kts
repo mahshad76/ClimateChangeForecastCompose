@@ -41,9 +41,8 @@ android {
 
 dependencies {
     //Projects
-    implementation(projects.core.datasource)
     implementation(projects.core.common)
-    implementation(projects.core.location)
+    implementation(projects.feature.common)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -66,11 +65,11 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // Location permission
-    implementation(libs.accompanist.permissions)
-
     // Coil
     implementation(libs.coil.compose)
+
+    // Location permission
+    implementation(libs.accompanist.permissions)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

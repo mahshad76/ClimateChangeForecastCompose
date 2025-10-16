@@ -1,4 +1,4 @@
-package com.currentweather.data.repository
+package com.mahshad.repository
 
 import android.location.Location
 import com.mahshad.location.LocationProvider

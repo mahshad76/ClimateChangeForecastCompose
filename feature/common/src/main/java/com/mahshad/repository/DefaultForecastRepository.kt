@@ -1,4 +1,4 @@
-package com.currentweather.data.repository
+package com.mahshad.repository
 
 import com.mahshad.datasource.remote.WeatherDataSource
 import javax.inject.Inject
