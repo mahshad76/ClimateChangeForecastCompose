@@ -1,4 +1,4 @@
-package com.currentweather.ui
+package com.currentweather.ui.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,9 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.common.model.extension.toFormattedTime
+import com.currentweather.ui.WeatherUI
 import com.mahshad.common.R
-import com.mahshad.datasource.model.currentweather.CurrentWeather
-import com.mahshad.datasource.model.forecast.Forecast
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.forecast.Forecast
 import java.util.Calendar
 import kotlin.math.roundToInt
 

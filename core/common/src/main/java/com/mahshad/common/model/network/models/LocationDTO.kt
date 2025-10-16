@@ -1,4 +1,4 @@
-package com.mahshad.network.models
+package com.mahshad.common.model.network.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

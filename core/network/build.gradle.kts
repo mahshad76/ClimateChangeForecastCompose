@@ -51,6 +51,10 @@ android {
 }
 
 dependencies {
+    
+    // Project
+    implementation(projects.core.common)
+
     // network
     api(libs.retrofit)
     implementation(libs.okhttp)

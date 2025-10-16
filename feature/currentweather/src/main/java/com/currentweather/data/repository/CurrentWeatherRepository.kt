@@ -1,6 +1,6 @@
 package com.currentweather.data.repository
 
-import com.mahshad.datasource.model.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 
 interface CurrentWeatherRepository {
     suspend fun getCurrentWeather(

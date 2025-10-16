@@ -1,6 +1,6 @@
-package com.mahshad.datasource.model.search
+package com.mahshad.common.model.datasource.models.search
 
-import com.mahshad.network.models.search.SearchDTO
+import com.mahshad.common.model.network.models.search.SearchDTO
 
 data class Search(
     var id: Int,

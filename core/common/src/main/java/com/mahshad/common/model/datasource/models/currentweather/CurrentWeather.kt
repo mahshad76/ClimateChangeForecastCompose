@@ -1,6 +1,6 @@
-package com.mahshad.datasource.model.currentweather
+package com.mahshad.common.model.datasource.models.currentweather
 
-import com.mahshad.network.models.currentweather.CurrentWeatherDTO
+import com.mahshad.common.model.network.models.currentweather.CurrentWeatherDTO
 
 data class CurrentWeather(
     val current: Current,

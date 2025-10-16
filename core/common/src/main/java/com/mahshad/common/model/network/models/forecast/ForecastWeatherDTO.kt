@@ -1,4 +1,4 @@
-package com.mahshad.network.models.forecast
+package com.mahshad.common.model.network.models.forecast
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

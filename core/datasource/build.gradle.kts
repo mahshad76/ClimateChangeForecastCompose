@@ -39,6 +39,7 @@ dependencies {
     // Project
     implementation(projects.core.network)
     implementation(projects.core.threading)
+    implementation(projects.core.common)
 
     // di
     implementation(libs.hilt.android)

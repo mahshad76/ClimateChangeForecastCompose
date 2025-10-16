@@ -1,10 +1,10 @@
 package com.mahshad.datasource.remote
 
 
+import com.mahshad.common.model.network.models.currentweather.CurrentWeatherDTO
+import com.mahshad.common.model.network.models.forecast.ForecastDTO
+import com.mahshad.common.model.network.models.search.SearchDTO
 import com.mahshad.network.ApiService
-import com.mahshad.network.models.currentweather.CurrentWeatherDTO
-import com.mahshad.network.models.forecast.ForecastDTO
-import com.mahshad.network.models.search.SearchDTO
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response

@@ -1,8 +1,8 @@
 package com.mahshad.datasource.remote
 
-import com.mahshad.datasource.model.currentweather.CurrentWeather
-import com.mahshad.datasource.model.forecast.Forecast
-import com.mahshad.datasource.model.search.Search
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.forecast.Forecast
+import com.mahshad.common.model.datasource.models.search.Search
 
 interface WeatherDataSource {
     suspend fun getCurrentWeather(

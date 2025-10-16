@@ -1,10 +1,6 @@
-package com.currentweather.data.model.forecast
+package com.mahshad.common.model.datasource.models.forecast
 
-import com.mahshad.datasource.model.forecast.Astro
-import com.mahshad.datasource.model.forecast.Day
-import com.mahshad.datasource.model.forecast.toAstro
-import com.mahshad.datasource.model.forecast.toDayResult
-import com.mahshad.network.models.forecast.ForecastDayDTO
+import com.mahshad.common.model.network.models.forecast.ForecastDayDTO
 
 data class ForecastDay(
     val date: String,

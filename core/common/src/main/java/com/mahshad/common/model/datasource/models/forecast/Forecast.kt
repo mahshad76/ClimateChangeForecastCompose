@@ -1,10 +1,11 @@
-package com.mahshad.datasource.model.forecast
+package com.mahshad.common.model.datasource.models.forecast
 
-import com.mahshad.datasource.model.currentweather.Current
-import com.mahshad.datasource.model.currentweather.Location
-import com.mahshad.datasource.model.currentweather.toCurrent
-import com.mahshad.datasource.model.currentweather.toLocation
-import com.mahshad.network.models.forecast.ForecastDTO
+import com.mahshad.common.model.datasource.models.currentweather.Current
+import com.mahshad.common.model.datasource.models.currentweather.Location
+import com.mahshad.common.model.datasource.models.currentweather.toCurrent
+import com.mahshad.common.model.datasource.models.currentweather.toLocation
+import com.mahshad.common.model.network.models.forecast.ForecastDTO
+
 
 data class Forecast(
     val location: Location,

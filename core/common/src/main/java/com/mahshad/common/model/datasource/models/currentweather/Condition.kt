@@ -1,6 +1,6 @@
-package com.mahshad.datasource.model.currentweather
+package com.mahshad.common.model.datasource.models.currentweather
 
-import com.mahshad.network.models.ConditionDTO
+import com.mahshad.common.model.network.models.ConditionDTO
 
 data class Condition(
     val code: Int,

@@ -1,6 +1,6 @@
 package com.mahshad.datasource.remote
 
-import com.mahshad.datasource.model.search.Search
+import com.mahshad.common.model.datasource.models.search.Search
 import com.mahshad.network.ApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.test.StandardTestDispatcher

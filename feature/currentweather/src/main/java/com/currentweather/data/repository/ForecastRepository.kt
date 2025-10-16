@@ -1,6 +1,6 @@
 package com.currentweather.data.repository
 
-import com.mahshad.datasource.model.forecast.Forecast
+import com.mahshad.common.model.datasource.models.forecast.Forecast
 
 interface ForecastRepository {
     suspend fun getForecast(

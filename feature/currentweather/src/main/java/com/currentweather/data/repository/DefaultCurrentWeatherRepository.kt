@@ -1,6 +1,6 @@
 package com.currentweather.data.repository
 
-import com.mahshad.datasource.model.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.datasource.remote.WeatherDataSource
 import javax.inject.Inject
 

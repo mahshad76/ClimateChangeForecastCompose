@@ -1,8 +1,8 @@
 package com.mahshad.network
 
-import com.mahshad.network.models.currentweather.CurrentWeatherDTO
-import com.mahshad.network.models.forecast.ForecastDTO
-import com.mahshad.network.models.search.SearchDTO
+import com.mahshad.common.model.network.models.currentweather.CurrentWeatherDTO
+import com.mahshad.common.model.network.models.forecast.ForecastDTO
+import com.mahshad.common.model.network.models.search.SearchDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

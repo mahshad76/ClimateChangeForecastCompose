@@ -1,8 +1,8 @@
-package com.mahshad.datasource.model.forecast
+package com.mahshad.common.model.datasource.models.forecast
 
-import com.mahshad.datasource.model.currentweather.Condition
-import com.mahshad.datasource.model.currentweather.toCondition
-import com.mahshad.network.models.forecast.DayDTO
+import com.mahshad.common.model.datasource.models.currentweather.Condition
+import com.mahshad.common.model.datasource.models.currentweather.toCondition
+import com.mahshad.common.model.network.models.forecast.DayDTO
 
 data class Day(
     val maxTempC: Double,

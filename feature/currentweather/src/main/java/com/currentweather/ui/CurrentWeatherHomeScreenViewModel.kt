@@ -9,9 +9,9 @@ import com.currentweather.data.repository.ForecastRepository
 import com.currentweather.data.repository.LocationRepository
 import com.currentweather.data.repository.SearchRepository
 import com.mahshad.common.R
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.forecast.Forecast
 import com.mahshad.common.model.error.RepositoryError
-import com.mahshad.datasource.model.currentweather.CurrentWeather
-import com.mahshad.datasource.model.forecast.Forecast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope

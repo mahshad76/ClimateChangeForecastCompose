@@ -1,11 +1,11 @@
 package com.mahshad.datasource.remote
 
-import com.mahshad.datasource.model.currentweather.CurrentWeather
-import com.mahshad.datasource.model.currentweather.toCurrentWeather
-import com.mahshad.datasource.model.forecast.Forecast
-import com.mahshad.datasource.model.forecast.toForecastResult
-import com.mahshad.datasource.model.search.Search
-import com.mahshad.datasource.model.search.toSearchResult
+import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
+import com.mahshad.common.model.datasource.models.currentweather.toCurrentWeather
+import com.mahshad.common.model.datasource.models.forecast.Forecast
+import com.mahshad.common.model.datasource.models.forecast.toForecastResult
+import com.mahshad.common.model.datasource.models.search.Search
+import com.mahshad.common.model.datasource.models.search.toSearchResult
 import com.mahshad.network.ApiService
 import com.mahshad.threading.common.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher

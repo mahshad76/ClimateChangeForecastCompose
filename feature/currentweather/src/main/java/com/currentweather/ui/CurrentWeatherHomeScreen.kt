@@ -18,6 +18,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.currentweather.ui.component.CustomSearchBar
 import com.currentweather.ui.component.LoadingContent
+import com.currentweather.ui.component.SuccessContent
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 

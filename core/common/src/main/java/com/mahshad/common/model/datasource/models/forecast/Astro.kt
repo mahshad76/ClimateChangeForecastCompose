@@ -1,6 +1,6 @@
-package com.mahshad.datasource.model.forecast
+package com.mahshad.common.model.datasource.models.forecast
 
-import com.mahshad.network.models.forecast.AstroDTO
+import com.mahshad.common.model.network.models.forecast.AstroDTO
 
 data class Astro(
     val sunrise: String,

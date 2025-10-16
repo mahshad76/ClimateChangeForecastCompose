@@ -1,4 +1,4 @@
-package com.mahshad.network.models.search
+package com.mahshad.common.model.network.models.search
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

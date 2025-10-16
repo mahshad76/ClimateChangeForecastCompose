@@ -1,6 +1,6 @@
-package com.mahshad.datasource.model.currentweather
+package com.mahshad.common.model.datasource.models.currentweather
 
-import com.mahshad.network.models.LocationDTO
+import com.mahshad.common.model.network.models.LocationDTO
 
 data class Location(
     val country: String,
