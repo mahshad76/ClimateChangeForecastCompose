@@ -47,7 +47,6 @@ fun NavController.navigateToCurrentWeatherGraph() {
 
 fun NavController.navigateToForecastGraph(forecastHome: ForecastRoutes.ForecastHome) {
     navigate(forecastHome) {
-        popUpTo(graph.startDestinationId) { saveState = true }
         launchSingleTop = true
         restoreState = true
     }

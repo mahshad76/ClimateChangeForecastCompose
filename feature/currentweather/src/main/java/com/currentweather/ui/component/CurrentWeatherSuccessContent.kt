@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,10 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.common.model.extension.toFormattedTime
-import com.mahshad.viewmodel.WeatherUI
 import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
+import com.mahshad.viewmodel.WeatherUI
 import java.util.Calendar
 import kotlin.math.roundToInt
 
@@ -133,17 +134,9 @@ fun SuccessContent(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // todo navigate to detail
-                /*weather.location.name.let { cityName ->
-                    Button(
-                        onClick = { onNavigateToDetail(cityName) },
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Text(
-                            text = stringResource(R.string.view_detail, cityName)
-                        )
-                    }
-                }*/
+                Button(onClick = { onNavigateToDetail.invoke("") }) {
+                    Text("details")
+                }
             }
         } ?: run {
             Box(

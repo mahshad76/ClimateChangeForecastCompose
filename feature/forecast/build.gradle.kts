@@ -41,6 +41,7 @@ dependencies {
 
     // Projects
     implementation(projects.feature.common)
+    implementation(projects.core.common)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import androidx.navigation.toRoute
 import com.forecast.ui.ForecastHomeScreen
 import kotlinx.serialization.Serializable
 
@@ -20,11 +19,10 @@ fun NavGraphBuilder.forecastGraph(
         startDestination = ForecastRoutes.ForecastHome::class,
         route = ForecastRoute::class
     ) {
-        composable(ForecastRoutes.ForecastHome::class) { backStackEntry ->
-            val route: ForecastRoutes.ForecastHome = backStackEntry.toRoute()
+        composable(ForecastRoutes.ForecastHome::class) {
             ForecastHomeScreen(
                 navController = navController,
-                route.location
+                onNavigateToCurrentWeatherGraph = onNavigateToCurrentWeatherGraph
             )
         }
     }
