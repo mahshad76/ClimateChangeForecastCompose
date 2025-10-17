@@ -2,7 +2,6 @@ package com.forecast.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -11,6 +10,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.forecast.ui.component.TemperatureCurveChart
 import com.mahshad.viewmodel.WeatherUIState
 import com.mahshad.viewmodel.WeatherViewModel
 
@@ -30,11 +30,11 @@ fun ForecastHomeScreen(
 
     Scaffold { innerPadding ->
         if (weatherUIState is WeatherUIState.Success) {
-            val city = (weatherUIState as WeatherUIState.Success).currentWeather.location.name
-            Text(
-                "Forecast home screen ${city}",
-                modifier = Modifier.padding(innerPadding)
-            )
+            val listOfHours =
+                (weatherUIState as WeatherUIState.Success).forecast.forecast.forecastDay.flatMap {
+                    it.hour
+                }
+            TemperatureCurveChart(listOfHours, modifier = Modifier.padding(innerPadding))
         }
 
     }
