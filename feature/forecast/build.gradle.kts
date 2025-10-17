@@ -39,6 +39,9 @@ android {
 
 dependencies {
 
+    // Projects
+    implementation(projects.feature.common)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -46,6 +49,7 @@ dependencies {
     // Navigation
     implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     // Compose
     implementation(libs.material3)

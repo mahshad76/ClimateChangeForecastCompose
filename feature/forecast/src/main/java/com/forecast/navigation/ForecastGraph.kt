@@ -22,7 +22,10 @@ fun NavGraphBuilder.forecastGraph(
     ) {
         composable(ForecastRoutes.ForecastHome::class) { backStackEntry ->
             val route: ForecastRoutes.ForecastHome = backStackEntry.toRoute()
-            ForecastHomeScreen(route.location)
+            ForecastHomeScreen(
+                navController = navController,
+                route.location
+            )
         }
     }
 }

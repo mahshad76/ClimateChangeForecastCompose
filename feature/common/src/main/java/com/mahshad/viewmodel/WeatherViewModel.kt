@@ -1,17 +1,17 @@
-package com.mahshad
+package com.mahshad.viewmodel
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mahshad.repository.CurrentWeatherRepository
-import com.mahshad.repository.ForecastRepository
-import com.mahshad.repository.LocationRepository
-import com.mahshad.repository.SearchRepository
 import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
 import com.mahshad.common.model.error.RepositoryError
+import com.mahshad.repository.CurrentWeatherRepository
+import com.mahshad.repository.ForecastRepository
+import com.mahshad.repository.LocationRepository
+import com.mahshad.repository.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CurrentWeatherHomeScreenViewModel @Inject constructor(
+class WeatherViewModel @Inject constructor(
     private val currentWeatherRepository: CurrentWeatherRepository,
     private val forecastRepository: ForecastRepository,
     private val locationRepository: LocationRepository,
