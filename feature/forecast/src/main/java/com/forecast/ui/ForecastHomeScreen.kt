@@ -30,6 +30,7 @@ fun ForecastHomeScreen(
 
     Scaffold { innerPadding ->
         if (weatherUIState is WeatherUIState.Success) {
+            (weatherUIState as WeatherUIState.Success).currentWeather.current
             val listOfHours =
                 (weatherUIState as WeatherUIState.Success).forecast.forecast.forecastDay.flatMap {
                     it.hour

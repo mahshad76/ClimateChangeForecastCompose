@@ -4,10 +4,10 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
 import com.mahshad.common.model.error.RepositoryError
+import com.mahshad.datasource.R
 import com.mahshad.repository.CurrentWeatherRepository
 import com.mahshad.repository.ForecastRepository
 import com.mahshad.repository.LocationRepository
