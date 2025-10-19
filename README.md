@@ -34,3 +34,15 @@ This structure provides a clear separation of concerns, making the codebase easi
 * **View:** The user interface layer (UI). It observes changes in the **ViewModel** and updates the UI accordingly. It remains lightweight and contains no business logic.
 * **ViewModel:** Acts as a bridge between the **Model** and the **View**. The ViewModel exposes the necessary data through **StateFlows**, which the View collects. Any change in a **StateFlow** automatically triggers **recomposition** in the View, ensuring the UI is always up-to-date with the latest weather information.
 
+## 🧩 Modules
+
+The project is organized into the following modules to promote reusability and maintainability:
+* **App:** The main application module.
+* **Core:** Contains common and reusable components.
+  * **common:** General utility classes and UI components.
+  * **location:** Handles all location-related logic, including requesting permissions and fetching coordinates.
+  * **network:** Manages API calls and data fetching from the weather service.
+  * **threading:** Provides components for managing coroutines and background operations.
+* **Feature:** Contains the distinct feature modules.
+  * **currentweather:** Implements the current weather and search functionality.
+  * **forecast:** Implements the detailed weather forecast screen.
