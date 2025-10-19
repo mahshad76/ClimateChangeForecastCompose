@@ -24,3 +24,13 @@ By navigating to the dedicated "Details" view, you gain a deeper understanding o
 * Specific metrics like **humidity**, **wind speed**, and **wind direction**.
 * A **visual, curvy diagram** that plots the change in **temperature over time**, offering a clear and intuitive understanding of how conditions will fluctuate throughout the day.
 
+## 🏗️ Architecture
+
+This project is built following the **Model-View-ViewModel (MVVM)** architectural pattern.
+
+This structure provides a clear separation of concerns, making the codebase easier to maintain, test, and scale:
+
+* **Model:** Handles the data logic, including networking calls to fetch weather data from the API.
+* **View:** The user interface layer (UI). It observes changes in the **ViewModel** and updates the UI accordingly. It remains lightweight and contains no business logic.
+* **ViewModel:** Acts as a bridge between the **Model** and the **View**. The ViewModel exposes the necessary data through **StateFlows**, which the View collects. Any change in a **StateFlow** automatically triggers **recomposition** in the View, ensuring the UI is always up-to-date with the latest weather information.
+
