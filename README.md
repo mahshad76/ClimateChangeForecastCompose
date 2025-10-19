@@ -46,3 +46,22 @@ The project is organized into the following modules to promote reusability and m
 * **Feature:** Contains the distinct feature modules.
   * **currentweather:** Implements the current weather and search functionality.
   * **forecast:** Implements the detailed weather forecast screen.
+
+## ⚙️ Technologies and Libraries
+The application leverages a modern Android development stack:
+
+* **Language:** [Kotlin](https://kotlinlang.org/).
+* **UI Framework:**
+ * Jetpack Compose for a declarative UI.
+* **Asynchronous Operations:**
+ * Kotlin Coroutines for managing background tasks.
+* **Dependency Injection:**
+ * Hilt for a clean and scalable DI setup.
+* **Networking:**
+ * Retrofit for type-safe HTTP client.
+ * OkHttp for efficient network requests.
+ * Kotlinx Serialization for JSON serialization/deserialization.
+ * Location Services: Google Play Services Location for accurate location data.
+ * Image Loading: Coil for image loading and caching.
+ * Permissions: Accompanist Permissions to handle runtime permissions gracefully.
+ * Navigation: Jetpack Navigation for app navigation.
