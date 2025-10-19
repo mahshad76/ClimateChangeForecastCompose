@@ -10,16 +10,16 @@ This application is designed to give you quick access to essential weather infor
 
 The main view provides a complete overview of a selected city's weather, including the current conditions and a detailed **24-hour hourly forecast**.
 
-* **Automatic Location Detection:** Upon launch, the app intelligently requests your current geographical location to instantly display relevant weather data for your immediate surroundings, minimizing setup time.
+* **Automatic Location Detection:** Upon launch, the app intelligently requests your current geographical location to instantly display relevant weather data for your immediate surroundings.
 * **Global Search Functionality:** Users can search for and select **any city worldwide** to retrieve its detailed current weather information and 24-hour forecast.
 
 ### 2. Detailed Forecast View
 
-Go beyond the hourly snapshot. This feature expands upon the initial data to provide more detailed, **long-term weather predictions** for the selected location, helping you plan ahead.
+Go beyond the hourly snapshot. This feature expands upon the initial data to provide more details.
 
 ### 3. Advanced Weather Details
 
-By navigating to the dedicated "Details" view, you gain a deeper understanding of the weather. This section provides more granular information about the **current weather** and the **full forecast**, including:
+By navigating to the dedicated "Details" view, you gain a deeper understanding of the weather. This section provides more information about the **current weather** and the **forecast**, including:
 
 * Specific metrics like **humidity**, **wind speed**, and **wind direction**.
 * A **visual, curvy diagram** that plots the change in **temperature over time**, offering a clear and intuitive understanding of how conditions will fluctuate throughout the day.
