@@ -3,31 +3,32 @@ package com.forecast.ui.component
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Air
+import androidx.compose.material.icons.filled.Thermostat
+import androidx.compose.material.icons.filled.WaterDrop
+import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.mahshad.common.model.datasource.models.currentweather.Condition
 import com.mahshad.common.model.datasource.models.currentweather.Current
-
 
 @Composable
 fun WeatherDetailCard(current: Current) {
@@ -54,21 +55,18 @@ fun WeatherDetailCard(current: Current) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Placeholder for Weather Icon (In a real app, this would load the condition.icon)
-//                Icon(
-//                    imageVector = Icons.Filled.WbSunny,
-//                    contentDescription = "Weather Icon",
-//                    modifier = Modifier.size(64.dp),
-//                    tint = contentColor
-//                )
+                AsyncImage(
+                    model = current.condition.icon,
+                    contentDescription = "Weather Icon",
+                    modifier = Modifier.size(64.dp)
+                )
                 Spacer(modifier = Modifier.width(16.dp))
-
                 Column {
                     Text(
                         text = "${current.tempC}°C",
                         fontSize = 52.sp,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 56.sp // Prevent text from being clipped
+                        lineHeight = 56.sp
                     )
                     Text(
                         text = current.condition.text,
@@ -80,79 +78,46 @@ fun WeatherDetailCard(current: Current) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // 2. Secondary Metrics Grid (2x2)
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // First Row of details
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-//                    WeatherDetailItem(
-//                        icon = Icons.Filled.Thermostat,
-//                        label = "Feels Like",
-//                        value = "${current.feelsLikeC}°C"
-//                    )
-//                    WeatherDetailItem(
-//                        icon = Icons.Filled.Air,
-//                        label = "Wind",
-//                        value = "${current.windKph} kph"
-//                    )
+                    WeatherDetailItem(
+                        icon = Icons.Filled.Thermostat,
+                        label = "Feels Like",
+                        value = "${current.feelsLikeC}°C"
+                    )
+                    WeatherDetailItem(
+                        icon = Icons.Filled.Air,
+                        label = "Wind",
+                        value = "${current.windKph} kph"
+                    )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Second Row of details
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-//                    WeatherDetailItem(
-//                        icon = Icons.Filled.WaterDrop,
-//                        label = "Humidity",
-//                        value = "${current.humidity}%"
-//                    )
-//                    WeatherDetailItem(
-//                        icon = Icons.Filled.WbSunny, // Reusing icon for UV, better to use a dedicated icon if available
-//                        label = "UV Index",
-//                        value = "${current.uv}"
-//                    )
+                    WeatherDetailItem(
+                        icon = Icons.Filled.WaterDrop,
+                        label = "Humidity",
+                        value = "${current.humidity}%"
+                    )
+                    WeatherDetailItem(
+                        icon = Icons.Filled.WbSunny,
+                        label = "UV Index",
+                        value = "${current.uv}"
+                    )
                 }
             }
         }
     }
 }
-
-// Helper composable for the detail items in the grid
-@Composable
-fun RowScope.WeatherDetailItem(icon: ImageVector, label: String, value: String) {
-    Column(
-        modifier = Modifier
-            .weight(1f) // Ensures equal spacing across the row
-            .padding(horizontal = 8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = label,
-            modifier = Modifier.size(24.dp)
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = value,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = label,
-            fontSize = 12.sp,
-            color = LocalContentColor.current.copy(alpha = 0.7f)
-        )
-    }
-}
-
-// Example Preview Composable (for demonstration purposes only)
 
 @Preview
 @Composable
