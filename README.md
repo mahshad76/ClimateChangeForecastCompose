@@ -1,5 +1,5 @@
 # ☀️ ClimateChangeForecastApp 🌍
-The ClimateChangeForecastApp explores the weather with our intuitive app, which presents two distinct views. The initial screen enables a quick city search to display its current weather and an accompanying 24-hour forecast. A dedicated "Details" view provides a deeper look, including data like humidity and wind direction, along with a curvy diagram that visually illustrates temperature changes over time for an easy-to-understand forecast.
+The ClimateChangeForecastApp explores the weather with our intuitive app, which presents two distinct views. The initial screen enables a quick city search to display its current weather and an accompanying 24-hour forecast. A dedicated "Details" view provides a deeper look, including data like humidity and wind direction, along with a curvy diagram that visually illustrates temperature changes over time for an easy-to-understand forecast. This app uses the [WeatherAPI](https://www.weatherapi.com/).
 <video src="https://github.com/user-attachments/assets/072b1e6a-0d82-4a90-8cb6-e73e86114a19" controls></video>
 
 ## 📋 Key Features
