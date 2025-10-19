@@ -54,11 +54,11 @@ The application leverages a modern Android development stack:
 * **UI Framework:** [Jetpack Compose](https://developer.android.com/compose) for a declarative UI.
 * **Asynchronous Operations:** [Kotlin Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for managing background tasks.
 * **Dependency Injection:** [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for a clean and scalable DI setup.
-* **Networking:**
-  * [Retrofit](https://square.github.io/retrofit/) for type-safe HTTP client.
-  * [OkHttp](https://square.github.io/okhttp/) for efficient network requests.
-  * [Kotlinx Serialization](https://kotlinlang.org/docs/serialization.html#what-s-next) for JSON serialization/deserialization.
 * **Location Services:** [Google Play Services Location](https://developer.android.com/develop/sensors-and-location/location) for accurate location data.
 * **Image Loading:** [Coil](https://github.com/coil-kt/coil) for image loading and caching.
 * **Permissions:** [Accompanist Permissions](https://google.github.io/accompanist/permissions/) to handle runtime permissions gracefully.
 * **Navigation:** [Jetpack Navigation](https://developer.android.com/develop/ui/compose/navigation) for app navigation.
+* **Networking:**
+  * [Retrofit](https://square.github.io/retrofit/) for type-safe HTTP client.
+  * [OkHttp](https://square.github.io/okhttp/) for efficient network requests.
+  * [Kotlinx Serialization](https://kotlinlang.org/docs/serialization.html#what-s-next) for JSON serialization/deserialization.
