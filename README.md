@@ -58,7 +58,7 @@ The application leverages a modern Android development stack:
   * [Retrofit](https://square.github.io/retrofit/) for type-safe HTTP client.
   * [OkHttp](https://square.github.io/okhttp/) for efficient network requests.
   * [Kotlinx Serialization](https://kotlinlang.org/docs/serialization.html#what-s-next) for JSON serialization/deserialization.
-  * Location Services: [Google Play Services Location](https://developer.android.com/develop/sensors-and-location/location) for accurate location data.
-  * Image Loading: [Coil](https://github.com/coil-kt/coil) for image loading and caching.
-  * Permissions: [Accompanist Permissions](https://google.github.io/accompanist/permissions/) to handle runtime permissions gracefully.
-  * Navigation: [Jetpack Navigation](https://developer.android.com/develop/ui/compose/navigation) for app navigation.
+* **Location Services:** [Google Play Services Location](https://developer.android.com/develop/sensors-and-location/location) for accurate location data.
+* **Image Loading:** [Coil](https://github.com/coil-kt/coil) for image loading and caching.
+* **Permissions:** [Accompanist Permissions](https://google.github.io/accompanist/permissions/) to handle runtime permissions gracefully.
+* **Navigation:** [Jetpack Navigation](https://developer.android.com/develop/ui/compose/navigation) for app navigation.
