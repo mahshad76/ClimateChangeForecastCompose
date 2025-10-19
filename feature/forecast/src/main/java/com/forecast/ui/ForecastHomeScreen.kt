@@ -1,7 +1,9 @@
 package com.forecast.ui
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -35,7 +37,10 @@ fun ForecastHomeScreen(
                 (weatherUIState as WeatherUIState.Success).forecast.forecast.forecastDay.flatMap {
                     it.hour
                 }
-            TemperatureCurveChart(listOfHours, modifier = Modifier.padding(innerPadding))
+            Column(modifier = Modifier.padding(innerPadding)) {
+                Text("details")
+                TemperatureCurveChart(listOfHours)
+            }
         }
 
     }
