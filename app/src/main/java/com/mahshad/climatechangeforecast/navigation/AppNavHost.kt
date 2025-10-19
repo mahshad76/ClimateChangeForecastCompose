@@ -24,8 +24,8 @@ fun AppNavHost(
     ) {
         currentWeatherGraph(
             navController = navController,
-            { location: String ->
-                navController.navigateToForecastGraph(ForecastRoutes.ForecastHome(location))
+            {
+                navController.navigateToForecastGraph(ForecastRoutes.ForecastHome)
             }
         )
         forecastGraph(

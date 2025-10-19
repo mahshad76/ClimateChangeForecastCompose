@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 sealed interface ForecastRoutes {
     @Serializable
-    data class ForecastHome(val location: String)
+    object ForecastHome
 }

@@ -12,7 +12,7 @@ data object CurrentWeatherRoute
 
 fun NavGraphBuilder.currentWeatherGraph(
     navController: NavController,
-    onNavigateToForecastGraph: (String) -> Unit
+    onNavigateToForecastGraph: () -> Unit
 ) {
     navigation(
         startDestination = CurrentWeatherRoutes.CurrentWeatherHome,

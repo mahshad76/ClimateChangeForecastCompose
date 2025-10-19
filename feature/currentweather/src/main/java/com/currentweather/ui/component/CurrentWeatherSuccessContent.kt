@@ -14,8 +14,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,9 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.common.model.extension.toFormattedTime
+import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
-import com.mahshad.common.R
 import com.mahshad.viewmodel.WeatherUI
 import java.util.Calendar
 import kotlin.math.roundToInt
@@ -46,7 +48,7 @@ fun SuccessContent(
     forecast: Forecast?,
     weatherData: WeatherUI,
     modifier: Modifier = Modifier,
-    onNavigateToDetail: (cityName: String) -> Unit
+    onNavigateToDetail: () -> Unit
 ) {
     val color = colorResource(weatherData.textColorResource)
     Box(
@@ -134,7 +136,11 @@ fun SuccessContent(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(onClick = { onNavigateToDetail.invoke("") }) {
+                Button(
+                    onClick = { onNavigateToDetail() },
+                    shape = RoundedCornerShape(percent = 50),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                ) {
                     Text("details")
                 }
             }

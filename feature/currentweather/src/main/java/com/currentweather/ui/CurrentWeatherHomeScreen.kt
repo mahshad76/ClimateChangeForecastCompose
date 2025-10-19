@@ -31,7 +31,7 @@ import com.mahshad.viewmodel.WeatherViewModel
 @Composable
 fun CurrentWeatherHomeScreen(
     navController: NavController,
-    onNavigateToForecastGraph: (String) -> Unit
+    onNavigateToForecastGraph: () -> Unit
 ) {
     val rootGraphId = remember(navController) { navController.graph.id }
     val backStackEntry = remember(navController.currentBackStackEntryAsState().value) {
