@@ -62,3 +62,6 @@ The application leverages a modern Android development stack:
   * [Retrofit](https://square.github.io/retrofit/) for type-safe HTTP client.
   * [OkHttp](https://square.github.io/okhttp/) for efficient network requests.
   * [Kotlinx Serialization](https://kotlinlang.org/docs/serialization.html#what-s-next) for JSON serialization/deserialization.
+
+ ## 🎨 Design
+The UI design is inspired by the following Figma community design: [Weather App for iOS or Android](https://www.figma.com/design/y0P4TouoUWlZNpxvt9gfLV/Weather-App-for-iOS-or-Android--Community-?node-id=0-1&p=f&t=jJLjZ0lhFHGBPgib-0).
