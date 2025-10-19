@@ -55,8 +55,11 @@ fun WeatherDetailCard(current: Current) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                val validUrl = "https:" +
+                        current.condition.icon.removePrefix("//")
+
                 AsyncImage(
-                    model = current.condition.icon,
+                    model = validUrl,
                     contentDescription = "Weather Icon",
                     modifier = Modifier.size(64.dp)
                 )

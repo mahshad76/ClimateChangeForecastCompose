@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.common.model.extension.toFormattedTime
-import com.mahshad.common.R
 import com.mahshad.common.model.datasource.models.currentweather.CurrentWeather
 import com.mahshad.common.model.datasource.models.forecast.Forecast
+import com.mahshad.common.R
 import com.mahshad.viewmodel.WeatherUI
 import java.util.Calendar
 import kotlin.math.roundToInt
